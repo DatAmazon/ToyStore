@@ -15,6 +15,8 @@ namespace ToyStoreManagement.Data
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<InventoryReceipt> InventoryReceipts { get; set; } = null!;
+        public DbSet<InventoryReceiptDetail> InventoryReceiptDetails { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

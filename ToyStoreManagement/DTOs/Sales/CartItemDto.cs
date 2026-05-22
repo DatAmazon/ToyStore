@@ -1,4 +1,4 @@
-﻿namespace ToyStoreManagement.DTOs
+﻿namespace ToyStoreManagement.DTOs.Sales
 {
     public class CartItemDto
     {

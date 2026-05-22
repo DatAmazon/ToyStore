@@ -1,4 +1,4 @@
-﻿namespace ToyStoreManagement.DTOs
+﻿namespace ToyStoreManagement.DTOs.Admin
 {
     public class ToyCreateDto
     {

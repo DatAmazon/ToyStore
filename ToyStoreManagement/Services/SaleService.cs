@@ -2,6 +2,7 @@
 using ProductStoreManagement.Entities;
 using ToyStoreManagement.Data;
 using ToyStoreManagement.DTOs;
+using ToyStoreManagement.DTOs.Sales;
 using ToyStoreManagement.Entities;
 using ToyStoreManagement.IRepositories;
 using ToyStoreManagement.IServices;
@@ -111,75 +112,149 @@ namespace ToyStoreManagement.Services
                 }).ToListAsync();
         }
 
-        public async Task<OrderDto> CheckoutAsync(string customerId, CheckoutDto dto)
+
+        public async Task<Guid> CheckoutAsync(OrderRequestDto request)
         {
-            // 1. Lấy toàn bộ hàng trong giỏ ra
-            var cartItems = await _context.CartItems
-                .Include(c => c.Product)
-                .Where(c => c.CustomerId == customerId)
-                .ToListAsync();
-
-            if (!cartItems.Any()) throw new Exception("Giỏ hàng trống rỗng, không thể đặt hàng.");
-
-            // Dùng Database Transaction để đảm bảo tính toàn vẹn dữ liệu (Atomicity)
+            // Sử dụng Transaction để đảm bảo tính toàn vẹn: 
+            // Nếu lỗi ở bất kỳ bước nào, toàn bộ thay đổi sẽ bị hủy (Rollback)
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
+                // 1. Khởi tạo thực thể Order
                 var order = new Order
                 {
-                    CustomerName = dto.CustomerName,
-                    OrderDate = DateTime.UtcNow,
-                    Status = "Pending"
+                    OrderId = Guid.NewGuid(),
+                    CustomerId = request.CustomerId,
+                    CustomerName = request.CustomerName,
+                    CustomerPhone = request.CustomerPhone,
+                    ShippingAddress = request.ShippingAddress,
+                    OrderDate = DateTime.Now,
+                    Status = "Pending", // Trạng thái chờ xử lý
+                    Discount = request.Discount
                 };
-                _context.Orders.Add(order);
 
                 decimal totalAmount = 0;
 
-                foreach (var item in cartItems)
+                // 2. Duyệt qua từng sản phẩm trong yêu cầu
+                foreach (var item in request.Items)
                 {
-                    // 2. Kiểm tra và trừ kho (Concurrency check cơ bản)
-                    if (item.Product.StockQuantity < item.Quantity)
-                    {
-                        throw new Exception($"Sản phẩm {item.Product.Name} đã hết hàng hoặc không đủ số lượng.");
-                    }
+                    var product = await _context.Products.FindAsync(item.ProductId);
 
-                    item.Product.StockQuantity -= item.Quantity; // Trừ kho trực tiếp
+                    if (product == null)
+                        throw new Exception($"Sản phẩm với ID {item.ProductId} không tồn tại.");
 
-                    var orderDetail = new OrderDetail
+                    if (product.StockQuantity < item.Quantity)
+                        throw new Exception($"Sản phẩm '{product.Name}' không đủ hàng (Hiện còn: {product.StockQuantity}).");
+
+                    // 3. Trừ số lượng tồn kho
+                    product.StockQuantity -= item.Quantity;
+
+                    // 4. Tạo chi tiết đơn hàng (OrderDetail)
+                    var detail = new OrderDetail
                     {
+                        OrderDetailId = Guid.NewGuid(),
                         OrderId = order.OrderId,
                         ProductId = item.ProductId,
                         Quantity = item.Quantity,
-                        Price = item.Product.Price
+                        Price = product.Price
                     };
 
-                    totalAmount += item.Quantity * item.Product.Price;
-                    _context.OrderDetails.Add(orderDetail);
+                    await _context.OrderDetails.AddAsync(detail);
+                    totalAmount += (detail.Quantity * detail.Price);
                 }
 
                 order.TotalAmount = totalAmount;
+                // Giả sử FinalAmount = Tổng - Giảm giá
+                // Bạn có thể thêm logic tính % ở đây nếu muốn
+                // order.FinalAmount = totalAmount - request.Discount; 
 
-                // 3. Xóa giỏ hàng sau khi đã chuyển thành hóa đơn đặt hàng
-                _context.CartItems.RemoveRange(cartItems);
+                _context.Orders.Add(order);
 
+                // 5. Lưu tất cả thay đổi
                 await _context.SaveChangesAsync();
-                await transaction.CommitAsync(); // Xác nhận lưu mọi thay đổi xuống Oracle DB
 
-                return new OrderDto
-                {
-                    OrderId = order.OrderId,
-                    CustomerName = order.CustomerName,
-                    TotalAmount = order.TotalAmount,
-                    Status = order.Status,
-                    OrderDate = order.OrderDate
-                };
+                // Hoàn tất Transaction
+                await transaction.CommitAsync();
+
+                return order.OrderId;
             }
             catch (Exception)
             {
-                await transaction.RollbackAsync(); // Nếu lỗi bất kỳ bước nào, hoàn tác lại toàn bộ dữ liệu sạch sẽ
-                throw;
+                // Nếu có lỗi, hủy bỏ mọi thay đổi (không trừ kho, không lưu đơn)
+                await transaction.RollbackAsync();
+                throw; // Ném lỗi ra để Controller xử lý
             }
         }
+
+        //public async Task<OrderDto> CheckoutAsync(string customerId, CheckoutDto dto)
+        //{
+        //    // 1. Lấy toàn bộ hàng trong giỏ ra
+        //    var cartItems = await _context.CartItems
+        //        .Include(c => c.Product)
+        //        .Where(c => c.CustomerId == customerId)
+        //        .ToListAsync();
+
+        //    if (!cartItems.Any()) throw new Exception("Giỏ hàng trống rỗng, không thể đặt hàng.");
+
+        //    // Dùng Database Transaction để đảm bảo tính toàn vẹn dữ liệu (Atomicity)
+        //    using var transaction = await _context.Database.BeginTransactionAsync();
+        //    try
+        //    {
+        //        var order = new Order
+        //        {
+        //            CustomerName = dto.CustomerName,
+        //            OrderDate = DateTime.UtcNow,
+        //            Status = "Pending"
+        //        };
+        //        _context.Orders.Add(order);
+
+        //        decimal totalAmount = 0;
+
+        //        foreach (var item in cartItems)
+        //        {
+        //            // 2. Kiểm tra và trừ kho (Concurrency check cơ bản)
+        //            if (item.Product.StockQuantity < item.Quantity)
+        //            {
+        //                throw new Exception($"Sản phẩm {item.Product.Name} đã hết hàng hoặc không đủ số lượng.");
+        //            }
+
+        //            item.Product.StockQuantity -= item.Quantity; // Trừ kho trực tiếp
+
+        //            var orderDetail = new OrderDetail
+        //            {
+        //                OrderId = order.OrderId,
+        //                ProductId = item.ProductId,
+        //                Quantity = item.Quantity,
+        //                Price = item.Product.Price
+        //            };
+
+        //            totalAmount += item.Quantity * item.Product.Price;
+        //            _context.OrderDetails.Add(orderDetail);
+        //        }
+
+        //        order.TotalAmount = totalAmount;
+
+        //        // 3. Xóa giỏ hàng sau khi đã chuyển thành hóa đơn đặt hàng
+        //        _context.CartItems.RemoveRange(cartItems);
+
+        //        await _context.SaveChangesAsync();
+        //        await transaction.CommitAsync(); // Xác nhận lưu mọi thay đổi xuống Oracle DB
+
+        //        return new OrderDto
+        //        {
+        //            OrderId = order.OrderId,
+        //            CustomerName = order.CustomerName,
+        //            TotalAmount = order.TotalAmount,
+        //            Status = order.Status,
+        //            OrderDate = order.OrderDate
+        //        };
+        //    }
+        //    catch (Exception)
+        //    {
+        //        await transaction.RollbackAsync(); // Nếu lỗi bất kỳ bước nào, hoàn tác lại toàn bộ dữ liệu sạch sẽ
+        //        throw;
+        //    }
+        //}
 
         public async Task<bool> ProcessPaymentAsync(Guid orderId)
         {

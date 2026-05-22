@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductStoreManagement.Entities;
-using ToyStoreManagement.DTOs;
+using ToyStoreManagement.DTOs.Admin;
 using ToyStoreManagement.IRepositories;
 
-namespace ToyStoreManagement.Controllers
+namespace ToyStoreManagement.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -44,14 +44,14 @@ namespace ToyStoreManagement.Controllers
 
             await _toyRepository.AddAsync(product);
             await _toyRepository.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(GetById), new { id = product.ProductId }, product);
         }
 
         // PUT: api/Toys/5 (Cập nhật thông tin đồ chơi)
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] Product updatedProduct)
         {
-            if (id != updatedProduct.Id) return BadRequest("ID không đồng nhất.");
+            if (id != updatedProduct.ProductId) return BadRequest("ID không đồng nhất.");
 
             _toyRepository.Update(updatedProduct);
             await _toyRepository.SaveChangesAsync();

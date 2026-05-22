@@ -1,8 +1,8 @@
 ﻿using ProductStoreManagement.Entities;
 
-namespace ToyStoreManagement.IServices
+namespace ToyStoreManagement.Services
 {
-    public class InventoryReceiptDetail
+    public class InventoryReceiptDetail1
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid InventoryReceiptId { get; set; }
