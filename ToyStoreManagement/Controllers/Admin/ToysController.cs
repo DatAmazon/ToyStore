@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductStoreManagement.Entities;
+using ToyStoreManagement.Entities;
 using ToyStoreManagement.DTOs.Admin;
 using ToyStoreManagement.IRepositories;
 

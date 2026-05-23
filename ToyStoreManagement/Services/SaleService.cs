@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductStoreManagement.Entities;
 using ToyStoreManagement.Data;
 using ToyStoreManagement.DTOs;
 using ToyStoreManagement.DTOs.Sales;

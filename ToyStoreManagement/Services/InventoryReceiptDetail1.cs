@@ -1,4 +1,4 @@
-﻿using ProductStoreManagement.Entities;
+﻿using ToyStoreManagement.Entities;
 
 namespace ToyStoreManagement.Services
 {

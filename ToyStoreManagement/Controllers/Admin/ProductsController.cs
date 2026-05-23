@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductStoreManagement.Entities;
 using ToyStoreManagement.Controllers.Base;
 using ToyStoreManagement.Data;
+using ToyStoreManagement.Entities;
 using ToyStoreManagement.IRepositories;
 
 namespace ToyStoreManagement.Controllers.Admin

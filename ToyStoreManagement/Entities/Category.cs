@@ -1,4 +1,4 @@
-﻿using ProductStoreManagement.Entities;
+﻿using ToyStoreManagement.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

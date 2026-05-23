@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductStoreManagement.Entities;
 using ToyStoreManagement.Entities;
 
 namespace ToyStoreManagement.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
         public DbSet<Product> Products { get; set; } = null!;   
         public DbSet<CartItem> CartItems { get; set; } = null!;
@@ -22,8 +19,13 @@ namespace ToyStoreManagement.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Oracle viết hoa toàn bộ tên bảng và cột theo chuẩn mặc định, 
-            // Ta có thể cấu hình thêm fluent API nếu cần thiết tại đây.
+            // Oracle yêu cầu cấu hình chính xác cho kiểu decimal
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                property.SetColumnType("NUMBER(18, 2)");
+            }
         }
     }
 }

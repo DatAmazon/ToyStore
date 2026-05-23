@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ToyStoreManagement.Entities;
 
-namespace ProductStoreManagement.Entities
+namespace ToyStoreManagement.Entities
 {
     [Table("PRODUCT")]
     public class Product
