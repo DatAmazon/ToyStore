@@ -73,7 +73,7 @@ namespace ToyStoreManagement.Controllers.Admin
             try
             {
                 var fileBytes = await _productsService.ExportProductsToExcelAsync();
-                var fileName = $"BaoCaoHangHoa_{DateTime.Now:ddMMyyyy_HHmm}.xlsx";
+                var fileName = $"ProductReport_{DateTime.Now:ddMMyyyy_HHmm}.xlsx";
 
                 return File(
                     fileBytes,
@@ -87,5 +87,54 @@ namespace ToyStoreManagement.Controllers.Admin
             }
         }
 
+        //[HttpGet("export-pdf-products")]
+        //public async Task<IActionResult> ExportPdf()
+        //{
+        //    try
+        //    {
+        //        var fileBytes = await _productsService.PDFProductReceipt();
+        //        var fileName = $"BaoCaoHangHoa_{DateTime.Now:ddMMyyyy_HHmm}.pdf";
+
+        //        // 1. Thiết lập Header Content-Disposition dạng inline kèm tên file
+        //        var contentDisposition = new System.Net.Mime.ContentDisposition
+        //        {
+        //            FileName = fileName,
+        //            Inline = true // Giúp hiển thị trực tiếp trên Postman/Trình duyệt nếu hỗ trợ
+        //        };
+        //        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+
+        //        // 2. Trả về file chỉ với bytes và mimeType (không truyền fileName vào tham số thứ 3 nữa)
+        //        //return File(fileBytes, "application/pdf");
+        //        // Tạm thời trả về file Word để kiểm tra
+        //        return File(fileBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", $"Test{DateTime.Now:ddMMyyyy_HHmm}.docx");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Lỗi: {ex.Message}");
+        //    }
+        //}
+
+        [HttpGet("export-pdf-products")]
+        public async Task<IActionResult> ExportPdf()
+        {
+            try
+            {
+                var fileBytes = await _productsService.PDFProductReceipt();
+
+                string fileName =
+                    $"BaoCaoHangHoa_{DateTime.Now:ddMMyyyy_HHmm}.pdf";
+
+                Response.Headers.Add(
+                    "Content-Disposition",
+                    $"inline; filename={fileName}"
+                );
+
+                return File(fileBytes, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Lỗi: {ex.Message}");
+            }
+        }
     }
 }

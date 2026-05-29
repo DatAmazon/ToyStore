@@ -1,4 +1,6 @@
-﻿using ToyStoreManagement.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ToyStoreManagement.Entities;
 
 namespace ToyStoreManagement.IRepositories
 {
