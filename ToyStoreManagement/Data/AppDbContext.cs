@@ -9,6 +9,7 @@ namespace ToyStoreManagement.Data
 
         public DbSet<Product> Products { get; set; } = null!;   
         public DbSet<CartItem> CartItems { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
@@ -25,6 +26,17 @@ namespace ToyStoreManagement.Data
                 .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
             {
                 property.SetColumnType("NUMBER(18, 2)");
+            }
+
+            // 2. TỰ ĐỘNG HÓA TÊN BẢNG VÀ SCHEMA (Cho 100 hay 1000 bảng đều được)
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                // Lấy tên Class (ví dụ Category) chuyển thành VIẾT HOA (CATEGORIES)
+                var tableName = entity.GetTableName().ToUpper();
+
+                // Gán lại tên bảng đã viết hoa và Schema C##ORACLEDB2026
+                entity.SetSchema("C##ORACLEDB2026");
+                entity.SetTableName(tableName);
             }
         }
     }

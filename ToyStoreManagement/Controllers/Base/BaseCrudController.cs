@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ToyStoreManagement.IRepositories;
 
 namespace ToyStoreManagement.Controllers.Base
@@ -32,6 +36,18 @@ namespace ToyStoreManagement.Controllers.Base
             await _repository.AddAsync(entity);
             await _repository.SaveChangesAsync();
             return Ok(entity);
+        }
+
+        [HttpPost("CreateMultiple")]
+        public virtual async Task<IActionResult> Create([FromBody] IEnumerable<T> entities)
+        {
+            if (entities == null || !entities.Any())
+                return BadRequest("Danh sách đối tượng không được để trống.");
+
+            await _repository.AddRangeAsync(entities);
+            await _repository.SaveChangesAsync();
+
+            return Ok(new { Message = $"Đã chèn thành công {entities.Count()} bản ghi.", Data = entities });
         }
 
         [HttpPut]

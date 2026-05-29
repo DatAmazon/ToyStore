@@ -1,4 +1,8 @@
-﻿namespace ToyStoreManagement.IRepositories
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ToyStoreManagement.IRepositories
 {
     public interface IRepository<T> where T : class
     {
@@ -8,5 +12,6 @@
         void Update(T entity);
         void Delete(T entity);
         Task SaveChangesAsync();
+        Task AddRangeAsync(IEnumerable<T> entities);
     }
 }

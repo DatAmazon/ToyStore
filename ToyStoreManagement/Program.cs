@@ -4,6 +4,7 @@ using ToyStoreManagement.IRepositories;
 using ToyStoreManagement.IServices;
 using ToyStoreManagement.Repositories;
 using ToyStoreManagement.Services;
+using ToyStoreManagement.Services.AdminService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ var connectionString =
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseOracle(connectionString));
 
+
+builder.Services.AddScoped<ProductsService>();
 builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IInventoryService, InventoryService>();
