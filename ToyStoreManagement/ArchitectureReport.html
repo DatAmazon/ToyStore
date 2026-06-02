@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Kiến trúc Hệ thống - ToyStoreManagement</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 20px; background-color: #f4f7f6; }
+        .container { max-width: 1000px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #2c3e50; }
+        .diagram { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 30px 0; }
+        .layer { width: 70%; padding: 15px; text-align: center; border-radius: 8px; font-weight: bold; border: 2px solid #555; cursor: pointer; transition: transform 0.2s; }
+        .layer:hover { transform: scale(1.02); }
+        .domain { background-color: #d4edda; }
+        .application { background-color: #cce5ff; }
+        .infrastructure { background-color: #fff3cd; }
+        .api { background-color: #f8d7da; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        .module { margin-left: 20px; padding: 5px; border-left: 3px solid #3498db; margin-bottom: 10px; }
+        .highlight { font-weight: bold; color: #d35400; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chi tiết Kiến trúc: ToyStoreManagement</h1>
+        <p>Báo cáo này cung cấp thông tin chuyên sâu về cấu trúc hệ thống <strong>Clean Architecture (Multi-Project Solution)</strong>.</p>
+
+        <h2>1. Bản đồ Phân lớp (Architecture Layers)</h2>
+        <div class="diagram">
+            <div class="layer api">API Layer (Presentation)</div>
+            <div class="layer infrastructure">Infrastructure Layer (Persistence & Reporting)</div>
+            <div class="layer application">Application Layer (Business Logic)</div>
+            <div class="layer domain">Domain Layer (Core Entities & Interfaces)</div>
+        </div>
+
+        <h2>2. Phân tích chi tiết từng tầng</h2>
+
+        <h3>Dự án: ToyStoreManagement.Domain (Core/Domain)</h3>
+        <div class="module">
+            <strong>Vai trò:</strong> Trung tâm của toàn bộ hệ thống, độc lập hoàn toàn với các tầng khác.
+            <ul>
+                <li><strong>Entities:</strong> Các thực thể dữ liệu chính (Product, Order, InventoryReceipt, ...).</li>
+                <li><strong>Interfaces:</strong> Định nghĩa các hợp đồng (Contracts) cho Repository (ví dụ: <code>IRepository<T></code>).</li>
+                <li><strong>Enums:</strong> Định nghĩa các trạng thái, loại hình xuyên suốt hệ thống.</li>
+            </ul>
+        </div>
+
+        <h3>Dự án: ToyStoreManagement.Application (Core/Application)</h3>
+        <div class="module">
+            <strong>Vai trò:</strong> Xử lý nghiệp vụ, chuyển đổi dữ liệu (DTOs) và hỗ trợ tính toán.
+            <ul>
+                <li><strong>Services:</strong> Chứa logic nghiệp vụ thực sự (ví dụ: `SaleService` tính toán đơn hàng, `ProductService` xử lý catalog).</li>
+                <li><strong>DTOs:</strong> Đối tượng chuyển dữ liệu qua lại giữa tầng API và Application.</li>
+                <li><strong>Interfaces:</strong> Định nghĩa các Service Interfaces để API và Infrastructure phụ thuộc vào đó.</li>
+                <li><strong>Helpers:</strong> Các tiện ích logic (<code>CurrencyHelper</code> chuyển số tiền sang chữ, <code>EnumExtensions</code>).</li>
+            </ul>
+        </div>
+
+        <h3>Dự án: ToyStoreManagement.Infrastructure (Infrastructure)</h3>
+        <div class="module">
+            <strong>Vai trò:</strong> Triển khai kỹ thuật cụ thể (Storage, Third-party libs).
+            <ul>
+                <li><strong>Persistence:</strong> `AppDbContext` (EF Core), cấu hình Oracle DB, triển khai các <code>Repository</code> thực tế.</li>
+                <li><strong>ExternalServices:</strong> Triển khai các dịch vụ ngoại vi. Ví dụ: `ReportService` sử dụng <code>QuestPDF</code> để xuất báo cáo PDF và <code>MiniExcel</code> cho Excel.</li>
+            </ul>
+        </div>
+
+        <h3>Dự án: ToyStoreManagement.API (Presentation)</h3>
+        <div class="module">
+            <strong>Vai trò:</strong> Điểm đầu vào (Entry point), tiếp nhận request và trả về response.
+            <ul>
+                <li><strong>Controllers:</strong> Tiếp nhận API request, gọi Service và trả về DTO.</li>
+                <li><strong>Configuration:</strong> `Program.cs` cấu hình Dependency Injection, Swagger, Middleware, và appsettings.</li>
+            </ul>
+        </div>
+
+        <h2>3. Các quyết định kiến trúc quan trọng</h2>
+        <table>
+            <tr>
+                <th>Vấn đề</th>
+                <th>Giải pháp Kiến trúc</th>
+                <th>Lợi ích</th>
+            </tr>
+            <tr>
+                <td>Phụ thuộc vòng</td>
+                <td>Dependency Inversion</td>
+                <td>Phá vỡ vòng lặp phụ thuộc (Service gọi Repository Interface, không gọi DbContext trực tiếp).</td>
+            </tr>
+            <tr>
+                <td>Hiệu năng Báo cáo</td>
+                <td>Tách biệt service báo cáo</td>
+                <td>Sử dụng thư viện chuyên dụng (QuestPDF) không ảnh hưởng tới logic CRUD.</td>
+            </tr>
+            <tr>
+                <td>Bảo trì</td>
+                <td>Multi-Project Solution</td>
+                <td>Đóng gói mã nguồn, dễ quản lý package NuGet, độc lập build.</td>
+            </tr>
+        </table>
+
+        <h2>4. Dòng phụ thuộc (Dependency Rule)</h2>
+        <p>Quy tắc sống còn: <em>Sự phụ thuộc chỉ đi từ ngoài vào trong</em>:</p>
+        <p style="text-align: center; background: #eee; padding: 10px; border-radius: 5px;">
+            <code>API</code> &rarr; <code>Infrastructure</code> &rarr; <code>Application</code> &rarr; <code>Domain</code>
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+using Microsoft.Extensions.DependencyInjection;
+using ToyStoreManagement.Application.Interfaces;
+using ToyStoreManagement.Application.Services;
+using ToyStoreManagement.Application.Services.AdminService;
+
+namespace ToyStoreManagement.Application;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    {
+        // Hiện tại ProductService chưa triển khai đầy đủ IProductService, đăng ký trực tiếp
+        services.AddScoped<ProductService>();
+        services.AddScoped<CategoriesService>(); 
+     
+        services.AddScoped<ISaleService, SaleService>();
+        services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IDiscountService, DiscountService>();
+        services.AddScoped<IReviewService, ReviewService>();
+        services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IAuthService, AuthService>();
+
+        return services;
+    }
+}
