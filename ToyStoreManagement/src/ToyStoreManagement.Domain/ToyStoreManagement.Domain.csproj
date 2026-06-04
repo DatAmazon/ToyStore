@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="gemini" Version="1.3.2" />
+    <PackageReference Include="Gemini.CommandLine" Version="1.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8" />
   </ItemGroup>
 

@@ -3,13 +3,13 @@ namespace ToyStoreManagement.Application.Interfaces
     public interface IReportService
     {
         /// <summary>
-        /// Xuất danh sách sản phẩm ra tệp Excel sử dụng template
+        /// Xuất danh sách sản phẩm ra tệp Excel sử dụng template mặc định
         /// </summary>
-        Task<byte[]> ExportProductsToExcelAsync(string templatePath, object? criteria = null);
+        Task<byte[]> GetProductExcelReportAsync();
 
         /// <summary>
         /// Xuất báo cáo danh sách sản phẩm ra tệp PDF chuyên nghiệp
         /// </summary>
-        Task<byte[]> ExportProductsToPdfAsync(string templatePath, string title, string creatorName);
+        Task<byte[]> GetProductPdfReportAsync(string title, string creatorName);
     }
 }

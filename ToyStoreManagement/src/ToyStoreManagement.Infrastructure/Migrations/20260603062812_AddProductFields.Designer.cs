@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using ToyStoreManagement.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using ToyStoreManagement.Infrastructure.Persistence;
 namespace ToyStoreManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260603062812_AddProductFields")]
+    partial class AddProductFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -509,9 +512,9 @@ namespace ToyStoreManagement.Migrations
                         .HasColumnType("RAW(16)")
                         .HasColumnName("CATEGORY_ID");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("IMAGE_URL");
+                    b.Property<byte[]>("Img")
+                        .HasColumnType("BLOB")
+                        .HasColumnName("IMG");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()

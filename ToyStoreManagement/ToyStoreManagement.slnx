@@ -3,6 +3,7 @@
     <Project Path="src/ToyStoreManagement.Application/ToyStoreManagement.Application.csproj" />
     <Project Path="src/ToyStoreManagement.Domain/ToyStoreManagement.Domain.csproj" />
     <Project Path="src/ToyStoreManagement.Infrastructure/ToyStoreManagement.Infrastructure.csproj" />
+    <Project Path="src/ToyStoreManagement.IntegrationTests/ToyStoreManagement.IntegrationTests.csproj" />
   </Folder>
   <Folder Name="/src/ToyStoreManagement.API/">
     <Project Path="src/ToyStoreManagement.API/ToyStoreManagement.csproj" />

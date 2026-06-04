@@ -19,20 +19,13 @@ namespace ToyStoreManagement.Controllers.Sales
             if (request == null || !request.Items.Any())
                 return BadRequest("Đơn hàng không có sản phẩm nào.");
 
-            try
+            var result = await _saleService.CheckoutAsync(request);
+            return Ok(new
             {
-                var result = await _saleService.CheckoutAsync(request);
-                return Ok(new
-                {
-                    Success = true,
-                    Message = "Đặt hàng thành công!",
-                    OrderId = result
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Success = false, Message = ex.Message });
-            }
+                Success = true,
+                Message = "Đặt hàng thành công!",
+                OrderId = result
+            });
         }
 
     }

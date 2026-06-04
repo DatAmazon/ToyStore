@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +11,7 @@ using ToyStoreManagement.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Cấu hình JWT Authentication
+// ... (Jwt configuration)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -26,7 +29,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Đăng ký các dịch vụ qua Extension methods
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment.WebRootPath ?? Path.Combine(builder.Environment.ContentRootPath, "wwwroot"));
+
+builder.Services.AddAutoMapper(cfg => {
+    cfg.AddProfile<ToyStoreManagement.Application.Mappings.MappingProfile>();
+});
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<ToyStoreManagement.Application.Validators.ProductCreateDtoValidator>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -46,8 +56,17 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-var app = builder.Build();
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(policy => {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
+var app = builder.Build();
+app.UseRouting();
+app.UseCors();
 app.UseExceptionMiddleware();
 
 if (app.Environment.IsDevelopment())
@@ -69,3 +88,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

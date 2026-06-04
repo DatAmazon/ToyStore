@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using ToyStoreManagement.Application.Interfaces;
+using ToyStoreManagement.Application.Interfaces.IAdminService;
 using ToyStoreManagement.Application.Services;
 using ToyStoreManagement.Application.Services.AdminService;
 
@@ -9,9 +10,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        // Hiện tại ProductService chưa triển khai đầy đủ IProductService, đăng ký trực tiếp
-        services.AddScoped<ProductService>();
-        services.AddScoped<CategoriesService>(); 
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<ICategoriesService, CategoriesService>(); 
      
         services.AddScoped<ISaleService, SaleService>();
         services.AddScoped<IInventoryService, InventoryService>();

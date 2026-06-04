@@ -3,30 +3,33 @@ using MiniExcelLibs;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 using ToyStoreManagement.Application.Helpers;
-using ToyStoreManagement.Infrastructure.Persistence;
 using ToyStoreManagement.Application.Interfaces;
+using ToyStoreManagement.Domain.Entities;
+using ToyStoreManagement.Domain.Interfaces;
 
 namespace ToyStoreManagement.Infrastructure.ExternalServices
 {
     public class ReportService : IReportService
     {
-        private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly string _rootPath;
 
-        public ReportService(AppDbContext context)
+        public ReportService(IUnitOfWork unitOfWork, string rootPath)
         {
-            _context = context;
-            // Cấu hình License cho QuestPDF (Community là miễn phí cho cá nhân/công ty nhỏ)
+            _unitOfWork = unitOfWork;
+            _rootPath = rootPath;
+            // Cấu hình License cho QuestPDF
             QuestPDF.Settings.License = LicenseType.Community;
         }
 
-        public async Task<byte[]> ExportProductsToExcelAsync(string templatePath, object? criteria = null)
+        public async Task<byte[]> GetProductExcelReportAsync()
         {
+            string templatePath = Path.Combine(_rootPath, "templates", "Report", "ProductReport.xlsx");
             if (!File.Exists(templatePath))
                 throw new FileNotFoundException("Template Excel không tồn tại.", templatePath);
 
-            var products = await _context.Products
+            var products = await _unitOfWork.Repository<Product>().GetQueryable()
                 .Include(p => p.Category)
                 .AsNoTracking()
                 .Select(p => new
@@ -47,12 +50,13 @@ namespace ToyStoreManagement.Infrastructure.ExternalServices
             return memoryStream.ToArray();
         }
 
-        public async Task<byte[]> ExportProductsToPdfAsync(string templatePath, string title, string creatorName)
+        public async Task<byte[]> GetProductPdfReportAsync(string title, string creatorName)
         {
-            if (!File.Exists(templatePath))
-                throw new FileNotFoundException("Template Excel không tồn tại.", templatePath);
+            string templatePath = Path.Combine(_rootPath, "templates", "Print", "ProductPrint.docx");
+            // Note: QuestPDF doesn't necessarily use docx as template, but the original code checked for it.
+            // In the original code, it seems it was just checking if the file exists before generating PDF manually.
 
-            var products = await _context.Products
+            var products = await _unitOfWork.Repository<Product>().GetQueryable()
                 .Include(p => p.Category)
                 .AsNoTracking()
                 .ToListAsync();
@@ -62,6 +66,7 @@ namespace ToyStoreManagement.Infrastructure.ExternalServices
 
             var document = Document.Create(container =>
             {
+                // ... (QuestPDF logic - same as before)
                 container.Page(page =>
                 {
                     page.Size(PageSizes.A4);
@@ -174,3 +179,4 @@ namespace ToyStoreManagement.Infrastructure.ExternalServices
         }
     }
 }
+

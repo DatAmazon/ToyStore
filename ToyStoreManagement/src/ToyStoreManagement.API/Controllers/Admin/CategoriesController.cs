@@ -1,13 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using ToyStoreManagement.Application.DTOs;
+using ToyStoreManagement.Application.Interfaces.IAdminService;
+using ToyStoreManagement.Application.Services.AdminService;
 using ToyStoreManagement.Controllers.Base;
-using ToyStoreManagement.Infrastructure.Persistence;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
-using ToyStoreManagement.Application.Services.AdminService;
 
 namespace ToyStoreManagement.Controllers.Admin
 {
@@ -15,37 +13,32 @@ namespace ToyStoreManagement.Controllers.Admin
     [ApiController]
     public class CategoriesController : BaseCrudController<Category>
     {
-        private readonly CategoriesService _categoriesService;
+        private readonly ICategoriesService _categoriesService;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(IRepository<Category> repository, CategoriesService categoriesService)
-            : base(repository)
+        public CategoriesController(IRepository<Category> repository, ICategoriesService categoriesService, IMapper mapper) : base(repository)
         {
             _categoriesService = categoriesService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
         public override async Task<IActionResult> GetAll()
         {
-            var result = await _categoriesService.GetAllAsync();
-            return Ok(result);
+            var categories = await _categoriesService.GetAllAsync();
+            var categoryDtos = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+            return Ok(categoryDtos);
         }
 
         [HttpPost("Create")]
         public override async Task<IActionResult> Create([FromBody] IEnumerable<Category> categories)
         {
-            try
-            {
-                var result = await _categoriesService.CreateMultipleAsync(categories);
+            var result = await _categoriesService.CreateMultipleAsync(categories);
 
-                if (!result.Success)
-                    return BadRequest(result.Message);
+            if (!result.Success)
+                return BadRequest(result.Message);
 
-                return Ok(new { message = result.Message, data = result.Data });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Lỗi Oracle: {ex.Message}");
-            }
+            return Ok(new { message = result.Message, data = result.Data });
         }
     }
 }

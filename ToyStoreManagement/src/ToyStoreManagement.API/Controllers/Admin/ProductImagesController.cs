@@ -15,11 +15,22 @@ namespace ToyStoreManagement.Controllers.Admin
             _imageService = imageService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Upload([FromBody] ProductImage image)
+        [HttpPost("upload/{productId}")]
+        public async Task<IActionResult> Upload(Guid productId, IFormFile file, [FromQuery] bool isMain = false)
         {
-            var result = await _imageService.UploadImageAsync(image);
-            return result.Success ? Ok(result.Message) : BadRequest(result.Message);
+            if (file == null || file.Length == 0) return BadRequest("File is empty");
+
+            using var stream = file.OpenReadStream();
+            var result = await _imageService.UploadProductImageAsync(
+                productId, 
+                stream, 
+                file.FileName, 
+                file.ContentType, 
+                isMain);
+
+            return result.Success 
+                ? Ok(new { result.Message, result.Url }) 
+                : BadRequest(result.Message);
         }
 
         [HttpPut("{productId}/main/{imageId}")]

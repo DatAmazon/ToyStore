@@ -1,21 +1,22 @@
 using Microsoft.EntityFrameworkCore;
+using ToyStoreManagement.Application.Interfaces.IAdminService;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
 
 namespace ToyStoreManagement.Application.Services.AdminService
 {
-    public class CategoriesService
+    public class CategoriesService : ICategoriesService
     {
-        private readonly IRepository<Category> _categoryRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoriesService(IRepository<Category> categoryRepo)
+        public CategoriesService(IUnitOfWork unitOfWork)
         {
-            _categoryRepo = categoryRepo;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<List<Category>> GetAllAsync()
         {
-            return await _categoryRepo.GetQueryable().ToListAsync();
+            return await _unitOfWork.Repository<Category>().GetQueryable().ToListAsync();
         }
 
         public async Task<(bool Success, string Message, IEnumerable<Category>? Data)> CreateMultipleAsync(IEnumerable<Category> categories)
@@ -24,7 +25,7 @@ namespace ToyStoreManagement.Application.Services.AdminService
                 return (false, "Category list cannot be empty.", null);
 
             var categoryNames = categories.Select(c => c.CategoryName).ToList();
-            var existingNames = await _categoryRepo.GetQueryable()
+            var existingNames = await _unitOfWork.Repository<Category>().GetQueryable()
                 .Where(c => categoryNames.Contains(c.CategoryName))
                 .Select(c => c.CategoryName)
                 .ToListAsync();
@@ -40,8 +41,8 @@ namespace ToyStoreManagement.Application.Services.AdminService
                 category.CategoryId = Guid.NewGuid();
             }
 
-            await _categoryRepo.AddRangeAsync(categories);
-            await _categoryRepo.SaveChangesAsync();
+            await _unitOfWork.Repository<Category>().AddRangeAsync(categories);
+            await _unitOfWork.SaveChangesAsync();
 
             return (true, "Saved successfully!", categories);
         }

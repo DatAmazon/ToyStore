@@ -36,5 +36,22 @@ namespace ToyStoreManagement.Domain.Entities
 
         [ForeignKey(nameof(CategoryId))]
         public virtual Category? Category { get; set; }
+
+        [Column("IMAGE_URL")]
+        public string? ImageUrl { get; set; }
+
+        [Column("RATING")]
+        public double? Rating { get; set; }
+
+        [Column("REVIEWS")]
+        public int? Reviews { get; set; }
+
+        [StringLength(50)]
+        [Column("BADGE")]
+        public string? Badge { get; set; }
+
+        [StringLength(50)]
+        [Column("BADGE_COLOR")]
+        public string? BadgeColor { get; set; }
     }
 }

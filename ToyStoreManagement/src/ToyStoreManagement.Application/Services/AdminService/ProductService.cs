@@ -1,43 +1,63 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using ToyStoreManagement.Application.Helpers;
+using ToyStoreManagement.Application.Interfaces;
+using ToyStoreManagement.Application.Interfaces.IAdminService;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
 
 namespace ToyStoreManagement.Application.Services.AdminService
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
-        private readonly IRepository<Product> _productRepo;
-        private readonly IRepository<Category> _categoryRepo;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IStorageService _storageService;
 
-        public ProductService(IRepository<Product> productRepo, IRepository<Category> categoryRepo)
+        public ProductService(IUnitOfWork unitOfWork, IStorageService storageService)
         {
-            _productRepo = productRepo;
-            _categoryRepo = categoryRepo;
+            _unitOfWork = unitOfWork;
+            _storageService = storageService;
         }
 
         public async Task<List<Product>> GetAllAsync()
         {
-            return await _productRepo.GetQueryable()
-                .Include(p => p.Category)
+            return await _unitOfWork.Repository<Product>().GetQueryable()
+                .Include(p => p.Category).OrderBy(p => p.Name)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<Product?> GetByIdAsync(Guid id)
         {
-            return await _productRepo.GetQueryable()
+            return await _unitOfWork.Repository<Product>().GetQueryable()
                 .Include(p => p.Category)
                 .FirstOrDefaultAsync(p => p.ProductId == id);
         }
 
-        public async Task<(bool Success, string Message, Product? Data)> CreateAsync(Product product)
+        public async Task<(bool Success, string Message, Product? Data)> CreateAsync(Product product, IFormFile? imageFile = null)
         {
             if (string.IsNullOrEmpty(product.Name)) return (false, "Name cannot be empty", null);
             if (product.Price < 0) return (false, "Price cannot be negative", null);
 
             product.ProductId = Guid.NewGuid();
-            await _productRepo.AddAsync(product);
-            await _productRepo.SaveChangesAsync();
+
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                using var stream = imageFile.OpenReadStream();
+                
+                // Loại bỏ dấu tiếng Việt trong tên file
+                string extension = Path.GetExtension(imageFile.FileName);
+                string fileNameOnly = Path.GetFileNameWithoutExtension(imageFile.FileName);
+                string safeFileName = StringHelper.RemoveDiacritics(fileNameOnly) + extension;
+                
+                string fileName = $"{Guid.NewGuid()}_{safeFileName}";
+                string fileKey = await _storageService.UploadFileAsync(stream, fileName, imageFile.ContentType);
+                product.ImageUrl = _storageService.GetFileUrl(fileKey);
+            }
+
+            await _unitOfWork.Repository<Product>().AddAsync(product);
+            await _unitOfWork.SaveChangesAsync();
 
             return (true, "Success", product);
         }
@@ -46,15 +66,15 @@ namespace ToyStoreManagement.Application.Services.AdminService
         {
             if (products == null || !products.Any()) return (false, "List is empty");
 
-            // Note: Transaction management should ideally be moved to an IUnitOfWork.
-            // For now, we are focusing on removing the AppDbContext dependency.
             try
             {
+                await _unitOfWork.BeginTransactionAsync();
+
                 var categoryIdsInRequest = products.Select(p => p.CategoryId).Distinct().ToList();
 
-                var existingCategories = await _categoryRepo.GetQueryable()
+                var existingCategories = await _unitOfWork.Repository<Category>().GetQueryable()
                     .Where(c => categoryIdsInRequest.Contains(c.CategoryId))
-                    .ToDictionaryAsync(c => c.CategoryId);
+                    .ToDictionaryAsync<Category, Guid>(c => c.CategoryId);
 
                 foreach (var product in products)
                 {
@@ -66,41 +86,66 @@ namespace ToyStoreManagement.Application.Services.AdminService
                             CategoryName = "New Auto-created Category"
                         };
 
-                        await _categoryRepo.AddAsync(newCategory);
+                        await _unitOfWork.Repository<Category>().AddAsync(newCategory);
                         existingCategories.Add(newCategory.CategoryId, newCategory);
                     }
                     product.ProductId = Guid.NewGuid();
                     product.Category = null;
                 }
 
-                await _productRepo.AddRangeAsync(products);
-                await _productRepo.SaveChangesAsync();
+                await _unitOfWork.Repository<Product>().AddRangeAsync(products);
+                await _unitOfWork.CommitTransactionAsync();
 
                 return (true, "Processed successfully!");
             }
             catch (Exception ex)
             {
+                await _unitOfWork.RollbackTransactionAsync();
                 throw new Exception($"Bulk processing error: {ex.Message}");
             }
         }
 
-        public async Task<bool> UpdateAsync(Product product)
+        public async Task<bool> UpdateAsync(Product product, IFormFile? imageFile = null)
         {
-            var exists = await _productRepo.GetQueryable().AnyAsync(p => p.ProductId == product.ProductId);
-            if (!exists) return false;
+            var existingProduct = await _unitOfWork.Repository<Product>().GetByIdAsync(product.ProductId);
+            if (existingProduct == null) return false;
 
-            _productRepo.Update(product);
-            await _productRepo.SaveChangesAsync();
+            // Map manual update fields
+            existingProduct.Name = product.Name;
+            existingProduct.Price = product.Price;
+            existingProduct.StockQuantity = product.StockQuantity;
+            existingProduct.MinimumAge = product.MinimumAge;
+            existingProduct.Manufacturer = product.Manufacturer;
+            existingProduct.CategoryId = product.CategoryId;
+            existingProduct.Badge = product.Badge;
+            existingProduct.BadgeColor = product.BadgeColor;
+
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                using var stream = imageFile.OpenReadStream();
+                
+                // Loại bỏ dấu tiếng Việt trong tên file
+                string extension = Path.GetExtension(imageFile.FileName);
+                string fileNameOnly = Path.GetFileNameWithoutExtension(imageFile.FileName);
+                string safeFileName = StringHelper.RemoveDiacritics(fileNameOnly) + extension;
+
+                string fileName = $"{Guid.NewGuid()}_{safeFileName}";
+                string fileKey = await _storageService.UploadFileAsync(stream, fileName, imageFile.ContentType);
+                existingProduct.ImageUrl = _storageService.GetFileUrl(fileKey);
+            }
+
+            _unitOfWork.Repository<Product>().Update(existingProduct);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var product = await _productRepo.GetByIdAsync(id);
+            var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
             if (product == null) return false;
 
-            _productRepo.Delete(product);
-            await _productRepo.SaveChangesAsync();
+            _unitOfWork.Repository<Product>().Delete(product);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }
