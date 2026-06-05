@@ -1,3 +1,4 @@
+using ToyStoreManagement.Application.DTOs;
 using ToyStoreManagement.Domain.Entities;
 
 namespace ToyStoreManagement.Application.Interfaces.IAdminService
@@ -5,6 +6,9 @@ namespace ToyStoreManagement.Application.Interfaces.IAdminService
     public interface ICategoriesService
     {
         Task<List<Category>> GetAllAsync();
-        Task<(bool Success, string Message, IEnumerable<Category>? Data)> CreateMultipleAsync(IEnumerable<Category> categories);
+        Task<(bool Success, string Message)> CreateMultipleAsync(IEnumerable<Category> categories);
+        Task<bool> UpdateAsync(CategoryDto categoryDto);
+        Task<bool> DeleteAsync(Guid id);
+        Task<Category?> GetByIdAsync(Guid id);
     }
 }

@@ -20,10 +20,30 @@ namespace ToyStoreManagement.Application.Services.AdminService
             _storageService = storageService;
         }
 
-        public async Task<List<Product>> GetAllAsync()
+        public async Task<List<Product>> GetAllAsync(int pageNumber, int pageSize)
         {
             return await _unitOfWork.Repository<Product>().GetQueryable()
-                .Include(p => p.Category).OrderBy(p => p.Name)
+                .Include(p => p.Category)
+                .OrderBy(p => p.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetAllToysAsync()
+        {
+            return await _unitOfWork.Repository<Product>().GetQueryable()
+                .Include(p => p.Category)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetLowStockToysAsync(int threshold)
+        {
+            return await _unitOfWork.Repository<Product>().GetQueryable()
+                .Where(p => p.StockQuantity < threshold)
+                .Include(p => p.Category)
                 .AsNoTracking()
                 .ToListAsync();
         }

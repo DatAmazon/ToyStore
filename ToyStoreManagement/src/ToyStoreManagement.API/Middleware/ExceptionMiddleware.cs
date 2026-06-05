@@ -1,4 +1,5 @@
 using System.Text.Json;
+using ToyStoreManagement.Application.DTOs.Common;
 
 namespace ToyStoreManagement.API.Middleware;
 
@@ -58,17 +59,13 @@ public class ExceptionMiddleware
 
         context.Response.StatusCode = statusCode;
 
-        var response = new ErrorResponse
-        {
-            Success = false,
-            StatusCode = statusCode,
-            Message = _environment.IsDevelopment()
-                ? exception.Message
-                : GetDefaultMessage(statusCode)
-        };
+        var response = ApiResponse<object>.FailureResponse(
+            _environment.IsDevelopment() ? exception.Message : GetDefaultMessage(statusCode),
+            _environment.IsDevelopment() ? exception.StackTrace : null
+        );
 
         await context.Response.WriteAsync(
-            JsonSerializer.Serialize(response));
+            JsonSerializer.Serialize(response, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
     }
 
     private static string GetDefaultMessage(int statusCode)
@@ -81,15 +78,6 @@ public class ExceptionMiddleware
             _ => "Internal server error."
         };
     }
-}
-
-public class ErrorResponse
-{
-    public bool Success { get; set; }
-
-    public int StatusCode { get; set; }
-
-    public string Message { get; set; } = string.Empty;
 }
 
 public static class ExceptionMiddlewareExtensions

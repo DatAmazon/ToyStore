@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ToyStoreManagement.Application.DTOs.Common;
 using ToyStoreManagement.Application.DTOs.Sales;
 using ToyStoreManagement.Application.Interfaces;
 
@@ -17,15 +18,10 @@ namespace ToyStoreManagement.Controllers.Sales
         public async Task<IActionResult> Checkout([FromBody] OrderRequestDto request)
         {
             if (request == null || !request.Items.Any())
-                return BadRequest("Đơn hàng không có sản phẩm nào.");
+                return BadRequest(ApiResponse<object>.FailureResponse("Đơn hàng không có sản phẩm nào."));
 
             var result = await _saleService.CheckoutAsync(request);
-            return Ok(new
-            {
-                Success = true,
-                Message = "Đặt hàng thành công!",
-                OrderId = result
-            });
+            return Ok(ApiResponse<object>.SuccessResponse(new { OrderId = result }, "Đặt hàng thành công!"));
         }
 
     }

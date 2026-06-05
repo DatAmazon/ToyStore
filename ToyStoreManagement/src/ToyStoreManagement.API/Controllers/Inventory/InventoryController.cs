@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ToyStoreManagement.Application.DTOs.Common;
 using ToyStoreManagement.Application.DTOs.Inventory;
 using ToyStoreManagement.Application.Interfaces;
 
@@ -12,6 +13,10 @@ namespace ToyStoreManagement.Controllers.Inventory
         public InventoryController(IInventoryService inventoryService) => _inventoryService = inventoryService;
 
         [HttpPost("receive")]
-        public async Task<IActionResult> Receive(InventoryRequest request) => Ok(await _inventoryService.ReceiveGoodsAsync(request));
+        public async Task<IActionResult> Receive(InventoryRequest request)
+        {
+            var result = await _inventoryService.ReceiveGoodsAsync(request);
+            return Ok(ApiResponse<Guid>.SuccessResponse(result, "Inventory received successfully"));
+        }
     }
 }

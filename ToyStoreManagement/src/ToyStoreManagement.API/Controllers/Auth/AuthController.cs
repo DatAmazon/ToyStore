@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ToyStoreManagement.Application.DTOs.Auth;
+using ToyStoreManagement.Application.DTOs.Common;
 using ToyStoreManagement.Application.Interfaces;
 
 namespace ToyStoreManagement.Controllers.Auth
@@ -19,14 +20,18 @@ namespace ToyStoreManagement.Controllers.Auth
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             var result = await _authService.RegisterAsync(dto);
-            return result.Success ? Ok(result.Message) : BadRequest(result.Message);
+            return result.Success 
+                ? Ok(ApiResponse<object>.SuccessResponse(null, result.Message)) 
+                : BadRequest(ApiResponse<object>.FailureResponse(result.Message));
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var result = await _authService.LoginAsync(dto);
-            return result.Success ? Ok(result.Data) : Unauthorized(result.Message);
+            return result.Success 
+                ? Ok(ApiResponse<object>.SuccessResponse(result.Data)) 
+                : Unauthorized(ApiResponse<object>.FailureResponse(result.Message));
         }
     }
 }

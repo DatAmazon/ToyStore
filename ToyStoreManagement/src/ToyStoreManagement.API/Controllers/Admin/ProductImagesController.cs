@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ToyStoreManagement.Application.DTOs.Common;
 using ToyStoreManagement.Application.Interfaces;
 using ToyStoreManagement.Domain.Entities;
 
@@ -18,7 +19,8 @@ namespace ToyStoreManagement.Controllers.Admin
         [HttpPost("upload/{productId}")]
         public async Task<IActionResult> Upload(Guid productId, IFormFile file, [FromQuery] bool isMain = false)
         {
-            if (file == null || file.Length == 0) return BadRequest("File is empty");
+            if (file == null || file.Length == 0) 
+                return BadRequest(ApiResponse<object>.FailureResponse("File is empty"));
 
             using var stream = file.OpenReadStream();
             var result = await _imageService.UploadProductImageAsync(
@@ -29,28 +31,35 @@ namespace ToyStoreManagement.Controllers.Admin
                 isMain);
 
             return result.Success 
-                ? Ok(new { result.Message, result.Url }) 
-                : BadRequest(result.Message);
+                ? Ok(ApiResponse<object>.SuccessResponse(new { result.Url }, result.Message)) 
+                : BadRequest(ApiResponse<object>.FailureResponse(result.Message));
         }
 
         [HttpPut("{productId}/main/{imageId}")]
         public async Task<IActionResult> SetMain(Guid productId, Guid imageId)
         {
             var success = await _imageService.SetMainImageAsync(productId, imageId);
-            return success ? NoContent() : NotFound();
+            if (!success) 
+                return NotFound(ApiResponse<object>.FailureResponse("Image or product not found"));
+                
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Main image set successfully"));
         }
 
         [HttpDelete("{imageId}")]
         public async Task<IActionResult> Delete(Guid imageId)
         {
             var success = await _imageService.DeleteImageAsync(imageId);
-            return success ? NoContent() : NotFound();
+            if (!success) 
+                return NotFound(ApiResponse<object>.FailureResponse("Image not found"));
+
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Image deleted successfully"));
         }
 
         [HttpGet("product/{productId}")]
         public async Task<IActionResult> GetByProduct(Guid productId)
         {
-            return Ok(await _imageService.GetImagesByProductAsync(productId));
+            var data = await _imageService.GetImagesByProductAsync(productId);
+            return Ok(ApiResponse<IEnumerable<ProductImage>>.SuccessResponse(data));
         }
     }
 }
