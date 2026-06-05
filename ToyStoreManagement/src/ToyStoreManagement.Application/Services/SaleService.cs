@@ -1,6 +1,8 @@
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using ToyStoreManagement.Application.DTOs;
 using ToyStoreManagement.Application.DTOs.Sales;
+using ToyStoreManagement.Domain.Constants;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
 using ToyStoreManagement.Application.Interfaces;
@@ -13,17 +15,20 @@ namespace ToyStoreManagement.Application.Services
         private readonly IRepository<Order> _orderRepo;
         private readonly IRepository<OrderDetail> _orderDetailRepo;
         private readonly IRepository<CartItem> _cartItemRepo;
+        private readonly INotificationService _notificationService;
 
         public SaleService(
              IRepository<Product> productRepo,
              IRepository<Order> orderRepo,
              IRepository<OrderDetail> orderDetailRepo,
-             IRepository<CartItem> cartItemRepo)
+             IRepository<CartItem> cartItemRepo,
+             INotificationService notificationService)
         {
             _productRepo = productRepo;
             _orderRepo = orderRepo;
             _orderDetailRepo = orderDetailRepo;
             _cartItemRepo = cartItemRepo;
+            _notificationService = notificationService;
         }
 
         public async Task<List<ProductDto>> GetProductsAsync()
@@ -113,7 +118,6 @@ namespace ToyStoreManagement.Application.Services
                 }).ToListAsync();
         }
 
-
         public async Task<Guid> CheckoutAsync(OrderRequestDto request)
         {
             try
@@ -125,8 +129,8 @@ namespace ToyStoreManagement.Application.Services
                     CustomerName = request.CustomerName,
                     CustomerPhone = request.CustomerPhone,
                     ShippingAddress = request.ShippingAddress,
-                    OrderDate = DateTime.Now,
-                    Status = "Pending",
+                    OrderDate = DateTime.UtcNow,
+                    Status = OrderStatuses.Pending,
                     Discount = request.Discount
                 };
 
@@ -161,6 +165,13 @@ namespace ToyStoreManagement.Application.Services
                 await _orderRepo.AddAsync(order);
 
                 await _orderRepo.SaveChangesAsync();
+
+                // 1. SIGNALR: Thông báo Real-time cho Admin
+                await _notificationService.SendNotificationAsync($"CÓ ĐƠN HÀNG MỚI: {request.CustomerName} vừa đặt hàng trị giá {totalAmount:N0}đ");
+
+                // 2. HANGFIRE: Đẩy tác vụ gửi Email vào Background Job (không làm khách hàng phải chờ)
+                BackgroundJob.Enqueue<IEmailService>(emailService => emailService.SendOrderConfirmationEmailAsync(order.CustomerName, order.OrderId.ToString()));
+
                 return order.OrderId;
             }
             catch (Exception)
@@ -173,13 +184,13 @@ namespace ToyStoreManagement.Application.Services
         {
             var order = await _orderRepo.GetByIdAsync(orderId);
             if (order == null) throw new Exception("Không tìm thấy đơn hàng.");
-            if (order.Status == "Paid") return true;
+            if (order.Status == OrderStatuses.Confirmed) return true;
 
             bool paymentSuccess = true; 
 
             if (paymentSuccess)
             {
-                order.Status = "Paid";
+                order.Status = OrderStatuses.Confirmed;
                 await _orderRepo.SaveChangesAsync();
                 return true;
             }
@@ -190,7 +201,10 @@ namespace ToyStoreManagement.Application.Services
         public async Task<bool> CancelOrderAsync(Guid orderId)
         {
             var order = await _orderRepo.GetByIdAsync(orderId);
-            if (order == null || order.Status != "Pending") return false;
+            
+            // Chỉ cho phép hủy nếu đơn hàng đang ở trạng thái Chờ xác nhận
+            if (order == null || order.Status != OrderStatuses.Pending) 
+                return false;
 
             var orderDetails = await _orderDetailRepo.GetQueryable()
                 .Where(d => d.OrderId == orderId)
@@ -201,12 +215,13 @@ namespace ToyStoreManagement.Application.Services
                 var product = await _productRepo.GetByIdAsync(detail.ProductId);
                 if (product != null)
                 {
+                    // Trả lại kho
                     product.StockQuantity += detail.Quantity;
                     _productRepo.Update(product);
                 }
             }
 
-            order.Status = "Cancelled";
+            order.Status = OrderStatuses.Cancelled;
             _orderRepo.Update(order);
 
             await _orderRepo.SaveChangesAsync();
@@ -217,7 +232,7 @@ namespace ToyStoreManagement.Application.Services
         public async Task<List<OrderDto>> GetCustomerOrdersAsync(Guid customerId)
         {
             var orders = await _orderRepo.GetQueryable()
-                .Where(o => o.OrderId == customerId)
+                .Where(o => o.CustomerId == customerId) // Sửa lỗi logic lấy đơn hàng theo CustomerId
                 .OrderByDescending(o => o.OrderDate)
                 .Select(o => new OrderDto
                 {

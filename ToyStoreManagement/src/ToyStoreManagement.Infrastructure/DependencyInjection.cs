@@ -30,6 +30,7 @@ namespace ToyStoreManagement.Infrastructure
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IReportService>(provider => 
                 new ReportService(provider.GetRequiredService<IUnitOfWork>(), webRootPath));
 

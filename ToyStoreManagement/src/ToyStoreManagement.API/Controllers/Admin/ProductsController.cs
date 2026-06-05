@@ -32,9 +32,16 @@ namespace ToyStoreManagement.Controllers.Admin
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 30)
+        public async Task<IActionResult> GetAllProducts(
+            [FromQuery] string? keyword,
+            [FromQuery] Guid? categoryId,
+            [FromQuery] decimal? minPrice,
+            [FromQuery] decimal? maxPrice,
+            [FromQuery] string? sortOrder,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 24)
         {
-            var products = await _productService.GetAllAsync(pageNumber, pageSize);
+            var products = await _productService.SearchAndFilterAsync(keyword, categoryId, minPrice, maxPrice, sortOrder, pageNumber, pageSize);
             var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
             return Ok(ApiResponse<IEnumerable<ProductDto>>.SuccessResponse(productDtos));
         }

@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -23,6 +24,18 @@ namespace ToyStoreManagement.Application.Helpers
             result = Regex.Replace(result, @"\s+", "-"); // Thay khoảng trắng bằng dấu gạch ngang
 
             return result.Trim('-').ToLower();
+        }
+
+        public static string Unaccent(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return text;
+
+            text = text.Normalize(NormalizationForm.FormD);
+            var chars = text.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray();
+            var result = new string(chars).Normalize(NormalizationForm.FormC);
+
+            return result.Replace('đ', 'd').Replace('Đ', 'D').ToLower();
         }
     }
 }

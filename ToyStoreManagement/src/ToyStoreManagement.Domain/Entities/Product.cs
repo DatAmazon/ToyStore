@@ -53,5 +53,14 @@ namespace ToyStoreManagement.Domain.Entities
         [StringLength(50)]
         [Column("BADGE_COLOR")]
         public string? BadgeColor { get; set; }
+
+        [Column("DESCRIPTION")]
+        public string? Description { get; set; }
+
+        [Column("SEARCH_NAME")]
+        public string? SearchName { get; set; }
+
+        [Column("IS_DELETED")]
+        public bool IsDeleted { get; set; } = false;
     }
 }

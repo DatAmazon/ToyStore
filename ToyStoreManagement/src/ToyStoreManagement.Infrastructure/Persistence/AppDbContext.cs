@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ToyStoreManagement.Domain.Entities;
 using System.Linq;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ToyStoreManagement.Infrastructure.Persistence
 {
@@ -21,6 +24,73 @@ namespace ToyStoreManagement.Infrastructure.Persistence
         public DbSet<ProductReview> ProductReviews { get; set; } = null!;
         public DbSet<DiscountCode> DiscountCodes { get; set; } = null!;
         public DbSet<StoreSetting> StoreSettings { get; set; } = null!;
+        public DbSet<Wishlist> Wishlists { get; set; } = null!;
+        public DbSet<AuditLog> AuditLogs { get; set; } = null!;
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var auditEntries = new List<AuditLog>();
+            
+            var entries = ChangeTracker.Entries()
+                .Where(e => e.Entity is not AuditLog && 
+                           (e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted))
+                .ToList();
+
+            foreach (var entry in entries)
+            {
+                var auditEntry = new AuditLog
+                {
+                    TableName = entry.Metadata.GetTableName() ?? entry.Entity.GetType().Name,
+                    Action = entry.State.ToString(),
+                    Timestamp = System.DateTime.UtcNow,
+                    UserId = "System" // Nếu có HttpContextAccessor, bạn có thể lấy tên User thực tế ở đây
+                };
+
+                var keyValues = new Dictionary<string, object?>();
+                var oldValues = new Dictionary<string, object?>();
+                var newValues = new Dictionary<string, object?>();
+
+                foreach (var property in entry.Properties)
+                {
+                    string propertyName = property.Metadata.Name;
+
+                    if (property.Metadata.IsPrimaryKey())
+                    {
+                        keyValues[propertyName] = property.CurrentValue;
+                    }
+
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            newValues[propertyName] = property.CurrentValue;
+                            break;
+                        case EntityState.Deleted:
+                            oldValues[propertyName] = property.OriginalValue;
+                            break;
+                        case EntityState.Modified:
+                            if (property.IsModified)
+                            {
+                                oldValues[propertyName] = property.OriginalValue;
+                                newValues[propertyName] = property.CurrentValue;
+                            }
+                            break;
+                    }
+                }
+
+                auditEntry.KeyValues = JsonSerializer.Serialize(keyValues);
+                auditEntry.OldValues = oldValues.Count > 0 ? JsonSerializer.Serialize(oldValues) : null;
+                auditEntry.NewValues = newValues.Count > 0 ? JsonSerializer.Serialize(newValues) : null;
+
+                auditEntries.Add(auditEntry);
+            }
+
+            if (auditEntries.Any())
+            {
+                await AuditLogs.AddRangeAsync(auditEntries, cancellationToken);
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

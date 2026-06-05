@@ -1,14 +1,27 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using ToyStoreManagement.Domain.Entities;
+using ToyStoreManagement.API.Hubs;
 using ToyStoreManagement.API.Middleware;
 using ToyStoreManagement.Application;
+using ToyStoreManagement.Application.Interfaces;
+using ToyStoreManagement.API.Services;
 using ToyStoreManagement.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Cấu hình Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.WriteTo.Console()
+                 .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day));
 
 // Cấu hình JWT Authentication
 // ... (Jwt configuration)
@@ -26,6 +39,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
         };
     });
+
+// Đăng ký Memory Cache
+builder.Services.AddMemoryCache();
+
+// Đăng ký Notification Service
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
+// Cấu hình Hangfire
+builder.Services.AddHangfire(configuration => configuration
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseInMemoryStorage());
+builder.Services.AddHangfireServer();
+
+// Cấu hình SignalR
+builder.Services.AddSignalR();
 
 // Đăng ký các dịch vụ qua Extension methods
 builder.Services.AddApplicationServices();
@@ -85,7 +114,29 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseHangfireDashboard("/hangfire");
+
 app.MapControllers();
+app.MapHub<NotificationHub>("/hubs/notification");
+
+// --- DATA BACKFILL FOR SEARCH ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ToyStoreManagement.Infrastructure.Persistence.AppDbContext>();
+    var productsToUpdate = await context.Products
+        .Where(p => p.SearchName == null)
+        .ToListAsync();
+
+    if (productsToUpdate.Any())
+    {
+        foreach (var product in productsToUpdate)
+        {
+            product.SearchName = ToyStoreManagement.Application.Helpers.StringHelper.Unaccent(product.Name);
+        }
+        await context.SaveChangesAsync();
+    }
+}
 
 app.Run();
 

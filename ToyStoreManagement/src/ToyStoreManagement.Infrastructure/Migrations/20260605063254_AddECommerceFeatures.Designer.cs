@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using ToyStoreManagement.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using ToyStoreManagement.Infrastructure.Persistence;
 namespace ToyStoreManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260605063254_AddECommerceFeatures")]
+    partial class AddECommerceFeatures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,53 +221,6 @@ namespace ToyStoreManagement.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("ASPNETUSERTOKENS", "C##ORACLEDB2026");
-                });
-
-            modelBuilder.Entity("ToyStoreManagement.Domain.Entities.AuditLog", b =>
-                {
-                    b.Property<Guid>("AuditId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("RAW(16)")
-                        .HasColumnName("AUDIT_ID");
-
-                    b.Property<string>("Action")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("NVARCHAR2(50)")
-                        .HasColumnName("ACTION");
-
-                    b.Property<string>("KeyValues")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("KEY_VALUES");
-
-                    b.Property<string>("NewValues")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("NEW_VALUES");
-
-                    b.Property<string>("OldValues")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("OLD_VALUES");
-
-                    b.Property<string>("TableName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("NVARCHAR2(100)")
-                        .HasColumnName("TABLE_NAME");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("TIMESTAMP(7)")
-                        .HasColumnName("TIMESTAMP");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("NVARCHAR2(255)")
-                        .HasColumnName("USER_ID");
-
-                    b.HasKey("AuditId");
-
-                    b.ToTable("AUDIT_LOGS", "C##ORACLEDB2026");
                 });
 
             modelBuilder.Entity("ToyStoreManagement.Domain.Entities.CartItem", b =>
@@ -595,10 +551,6 @@ namespace ToyStoreManagement.Migrations
                     b.Property<int?>("Reviews")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("REVIEWS");
-
-                    b.Property<string>("SearchName")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("SEARCH_NAME");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("NUMBER(10)")

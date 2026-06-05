@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using ToyStoreManagement.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using ToyStoreManagement.Infrastructure.Persistence;
 namespace ToyStoreManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260605070306_AddAuditLogs")]
+    partial class AddAuditLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -595,10 +598,6 @@ namespace ToyStoreManagement.Migrations
                     b.Property<int?>("Reviews")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("REVIEWS");
-
-                    b.Property<string>("SearchName")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("SEARCH_NAME");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("NUMBER(10)")
