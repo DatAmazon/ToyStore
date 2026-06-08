@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ToyStoreManagement.Application.DTOs.Common;
@@ -8,6 +9,7 @@ namespace ToyStoreManagement.Controllers.Sales
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
@@ -17,13 +19,25 @@ namespace ToyStoreManagement.Controllers.Sales
             _cartService = cartService;
         }
 
-        private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anonymous_user";
+        private string GetUserId() 
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId)) throw new UnauthorizedAccessException("Người dùng chưa đăng nhập.");
+            return userId;
+        }
 
-        [HttpPost("add")]
+        [HttpPost("add-to-cart")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartDto dto)
         {
             await _cartService.AddToCartAsync(GetUserId(), dto);
-            return Ok(ApiResponse<object>.SuccessResponse(null, "Added to cart"));
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Đã thêm vào giỏ hàng"));
+        }
+
+        [HttpPut("update-quantity")]
+        public async Task<IActionResult> UpdateQuantity([FromBody] UpdateCartItemDto dto)
+        {
+            await _cartService.UpdateQuantityAsync(GetUserId(), dto);
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Đã cập nhật số lượng"));
         }
 
         [HttpGet]
@@ -37,7 +51,7 @@ namespace ToyStoreManagement.Controllers.Sales
         public async Task<IActionResult> Remove(Guid cartItemId)
         {
             await _cartService.RemoveFromCartAsync(cartItemId);
-            return Ok(ApiResponse<object>.SuccessResponse(null, "Removed from cart"));
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Đã xóa khỏi giỏ hàng"));
         }
 
         [HttpGet("total")]
@@ -45,6 +59,13 @@ namespace ToyStoreManagement.Controllers.Sales
         {
             var total = await _cartService.GetCartTotalAsync(GetUserId());
             return Ok(ApiResponse<object>.SuccessResponse(new { Total = total }));
+        }
+
+        [HttpDelete("clear-cart")]
+        public async Task<IActionResult> Clear()
+        {
+            await _cartService.ClearCartAsync(GetUserId());
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Đã làm trống giỏ hàng"));
         }
     }
 }

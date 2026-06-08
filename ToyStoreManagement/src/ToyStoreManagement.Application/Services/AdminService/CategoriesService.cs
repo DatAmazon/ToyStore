@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ToyStoreManagement.Application.DTOs;
 using ToyStoreManagement.Application.Interfaces.IAdminService;
@@ -9,10 +10,12 @@ namespace ToyStoreManagement.Application.Services.AdminService
     public class CategoriesService : ICategoriesService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CategoriesService(IUnitOfWork unitOfWork)
+        public CategoriesService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<List<Category>> GetAllAsync()
@@ -20,12 +23,12 @@ namespace ToyStoreManagement.Application.Services.AdminService
             return await _unitOfWork.Repository<Category>().GetQueryable().ToListAsync();
         }
 
-        public async Task<(bool Success, string Message)> CreateMultipleAsync(IEnumerable<Category> categories)
+        public async Task<(bool Success, string Message)> CreateMultipleAsync(IEnumerable<CategoryDto> categoryDtos)
         {
-            if (categories == null || !categories.Any())
+            if (categoryDtos == null || !categoryDtos.Any())
                 return (false, "Category list cannot be empty.");
 
-            var categoryNames = categories.Select(c => c.CategoryName).ToList();
+            var categoryNames = categoryDtos.Select(c => c.CategoryName).ToList();
             var existingNames = await _unitOfWork.Repository<Category>().GetQueryable()
                 .Where(c => categoryNames.Contains(c.CategoryName))
                 .Select(c => c.CategoryName)
@@ -34,12 +37,15 @@ namespace ToyStoreManagement.Application.Services.AdminService
             if (existingNames.Any())
                 return (false, $"The following categories already exist: {string.Join(", ", existingNames)}");
 
-            foreach (var category in categories)
+            var categories = new List<Category>();
+            foreach (var dto in categoryDtos)
             {
-                if (string.IsNullOrEmpty(category.CategoryName))
+                if (string.IsNullOrEmpty(dto.CategoryName))
                     return (false, "One of the categories has an empty name.");
 
+                var category = _mapper.Map<Category>(dto);
                 category.CategoryId = Guid.NewGuid();
+                categories.Add(category);
             }
 
             await _unitOfWork.Repository<Category>().AddRangeAsync(categories);
@@ -50,7 +56,10 @@ namespace ToyStoreManagement.Application.Services.AdminService
 
         public async Task<bool> UpdateAsync(CategoryDto categoryDto)
         {
-            var existing = await _unitOfWork.Repository<Category>().GetByIdAsync(categoryDto.Id);
+            if (categoryDto.Id == null)
+                throw new ArgumentException("Id is required for update.");
+
+            var existing = await _unitOfWork.Repository<Category>().GetByIdAsync(categoryDto.Id.Value);
             if (existing == null) 
                 throw new KeyNotFoundException($"Không tìm thấy danh mục với mã ID: {categoryDto.Id}");
 

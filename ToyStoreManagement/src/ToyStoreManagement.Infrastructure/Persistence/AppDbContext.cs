@@ -127,6 +127,11 @@ namespace ToyStoreManagement.Infrastructure.Persistence
                     }
                 }
             }
+
+            // Cấu hình CustomerId trong Order là nullable
+            modelBuilder.Entity<Order>()
+                .Property(o => o.CustomerId)
+                .IsRequired(false);
         }
     }
 }

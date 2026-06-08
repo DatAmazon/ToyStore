@@ -24,10 +24,10 @@ namespace ToyStoreManagement.Domain.Entities
         public decimal FinalAmount { get; set; }
 
         [Column("CUSTOMER_ID")]
-        public Guid CustomerId { get; set; }
+        public Guid? CustomerId { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
-        public virtual Customer Customer { get; set; } = null!; // Thêm virtual để hỗ trợ Lazy Loading
+        public virtual Customer? Customer { get; set; } // Thêm virtual để hỗ trợ Lazy Loading
 
         [Required]
         [StringLength(20)]

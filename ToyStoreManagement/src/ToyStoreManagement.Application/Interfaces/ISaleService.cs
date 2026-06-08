@@ -9,18 +9,14 @@ namespace ToyStoreManagement.Application.Interfaces
         Task<List<ProductDto>> GetProductsAsync();
         Task<ProductDto> CreateProductAsync(ProductDto productDto);
         //Task<List<ProductDto>> GetProductsByAgeAsync(int age);
-        Task<List<ProductDto>> SearchProductsAsync(string keyword); // <-- Mới: Tìm kiếm
-
-        // Cart Logic
-        Task AddToCartAsync(AddToCartDto dto);
-        Task<List<CartItemDto>> GetCartAsync(string customerId);
-        //Task ClearCartAsync(string customerId);
+        Task<List<ProductDto>> SearchProductsAsync(ProductSearchDto searchDto); // <-- Mới: Tìm kiếm nâng cao
 
         // Order & Payment Logic
         //Task<OrderDto> CheckoutAsync(string customerId, CheckoutDto dto);
         Task<Guid> CheckoutAsync(OrderRequestDto orderRequestDto);
+        Task<OrderResponseDto> GetOrderDetailsAsync(Guid orderId);
         Task<bool> ProcessPaymentAsync(Guid orderId);
         Task<bool> CancelOrderAsync(Guid orderId); // <-- Mới: Hủy đơn hàng
-        Task<List<OrderDto>> GetCustomerOrdersAsync(Guid customerId);
+        Task<List<OrderDto>> GetCustomerOrdersAsync(string customerId);
     }
 }

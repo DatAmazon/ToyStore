@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IReviewService, ReviewService>();
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IWishlistService, WishlistService>();
         services.AddScoped<IAuthService, AuthService>();
 
         return services;

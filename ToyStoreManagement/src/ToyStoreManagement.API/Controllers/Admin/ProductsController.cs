@@ -9,10 +9,14 @@ using ToyStoreManagement.Controllers.Base;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
 
-namespace ToyStoreManagement.Controllers.Admin
+using ToyStoreManagement.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
+
+namespace ToyStoreManagement.Controllers.Admin  
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = AppRoles.Admin)]
     public class ProductsController : BaseCrudController<Product>
     {
         private readonly IProductService _productService;

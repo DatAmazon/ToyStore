@@ -33,5 +33,14 @@ namespace ToyStoreManagement.Controllers.Auth
                 ? Ok(ApiResponse<object>.SuccessResponse(result.Data)) 
                 : Unauthorized(ApiResponse<object>.FailureResponse(result.Message));
         }
+
+        [HttpPost("google-login")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginDto dto)
+        {
+            var result = await _authService.GoogleLoginAsync(dto);
+            return result.Success
+                ? Ok(ApiResponse<object>.SuccessResponse(result.Data))
+                : BadRequest(ApiResponse<object>.FailureResponse(result.Message));
+        }
     }
 }

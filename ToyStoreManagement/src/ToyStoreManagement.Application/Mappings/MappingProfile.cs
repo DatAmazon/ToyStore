@@ -13,7 +13,8 @@ namespace ToyStoreManagement.Application.Mappings
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category != null ? src.Category.CategoryName : "N/A"));
 
             CreateMap<Category, CategoryDto>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CategoryId));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CategoryId))
+                .ReverseMap();
             // 2. Map tên danh mục (ví dụ DB là Title, DTO là Name)
             //.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title))
 

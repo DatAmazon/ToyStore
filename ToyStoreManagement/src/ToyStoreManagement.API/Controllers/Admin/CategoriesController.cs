@@ -9,10 +9,14 @@ using ToyStoreManagement.Controllers.Base;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
 
+using ToyStoreManagement.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ToyStoreManagement.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = AppRoles.Admin)]
     public class CategoriesController : BaseCrudController<Category>
     {
         private readonly ICategoriesService _categoriesService;
@@ -33,9 +37,9 @@ namespace ToyStoreManagement.Controllers.Admin
         }
 
         [HttpPost("Create")]
-        public override async Task<IActionResult> Create([FromBody] IEnumerable<Category> categories)
+        public async Task<IActionResult> CreateCategories([FromBody] IEnumerable<CategoryDto> categoryDtos)
         {
-            var result = await _categoriesService.CreateMultipleAsync(categories);
+            var result = await _categoriesService.CreateMultipleAsync(categoryDtos);
             if (!result.Success) return BadRequest(ApiResponse<object>.FailureResponse(result.Message));
             return Ok(ApiResponse<object>.SuccessResponse(null, result.Message));
         }
@@ -62,5 +66,7 @@ namespace ToyStoreManagement.Controllers.Admin
         public override Task<IActionResult> Delete(Guid id) => base.Delete(id);
         [NonAction]
         public override Task<IActionResult> Create(Category entity) => base.Create(entity);
+        [NonAction]
+        public override Task<IActionResult> Create(IEnumerable<Category> entities) => base.Create(entities);
     }
 }

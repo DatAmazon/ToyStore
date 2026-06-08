@@ -16,19 +16,25 @@ namespace ToyStoreManagement.Application.Services
         private readonly IRepository<OrderDetail> _orderDetailRepo;
         private readonly IRepository<CartItem> _cartItemRepo;
         private readonly INotificationService _notificationService;
+        private readonly ICartService _cartService;
+        private readonly IDiscountService _discountService;
 
         public SaleService(
              IRepository<Product> productRepo,
              IRepository<Order> orderRepo,
              IRepository<OrderDetail> orderDetailRepo,
              IRepository<CartItem> cartItemRepo,
-             INotificationService notificationService)
+             INotificationService notificationService,
+             ICartService cartService,
+             IDiscountService discountService)
         {
             _productRepo = productRepo;
             _orderRepo = orderRepo;
             _orderDetailRepo = orderDetailRepo;
             _cartItemRepo = cartItemRepo;
             _notificationService = notificationService;
+            _cartService = cartService;
+            _discountService = discountService;
         }
 
         public async Task<List<ProductDto>> GetProductsAsync()
@@ -58,70 +64,77 @@ namespace ToyStoreManagement.Application.Services
             return productDto;
         }
 
-        public async Task<List<ProductDto>> SearchProductsAsync(string keyword)
+        public async Task<List<ProductDto>> SearchProductsAsync(ProductSearchDto searchDto)
         {
-            if (string.IsNullOrWhiteSpace(keyword)) return await GetProductsAsync();
+            var query = _productRepo.GetQueryable().Include(p => p.Category).AsQueryable();
 
-            var products = await _productRepo.GetQueryable()
-                .Where(p => p.Name.ToLower().Contains(keyword.ToLower()))
-                .ToListAsync();
+            if (!string.IsNullOrWhiteSpace(searchDto.Keyword))
+            {
+                var keyword = searchDto.Keyword.ToLower();
+                query = query.Where(p => p.Name.ToLower().Contains(keyword));
+            }
+
+            if (searchDto.CategoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == searchDto.CategoryId.Value);
+            }
+
+            if (searchDto.MinPrice.HasValue)
+            {
+                query = query.Where(p => p.Price >= searchDto.MinPrice.Value);
+            }
+
+            if (searchDto.MaxPrice.HasValue)
+            {
+                query = query.Where(p => p.Price <= searchDto.MaxPrice.Value);
+            }
+
+            if (searchDto.MinAge.HasValue)
+            {
+                query = query.Where(p => p.MinimumAge >= searchDto.MinAge.Value);
+            }
+
+            switch (searchDto.SortBy?.ToLower())
+            {
+                case "price_asc":
+                    query = query.OrderBy(p => p.Price);
+                    break;
+                case "price_desc":
+                    query = query.OrderByDescending(p => p.Price);
+                    break;
+                case "newest":
+                default:
+                    query = query.OrderBy(p => p.Name); // Sắp xếp theo tên từ A -> Z theo yêu cầu
+                    break;
+            }
+
+            var products = await query.ToListAsync();
 
             return products.Select(p => new ProductDto
             {
                 Id = p.ProductId,
                 Name = p.Name,
                 Price = p.Price,
-                StockQuantity = p.StockQuantity
+                StockQuantity = p.StockQuantity,
+                CategoryName = p.Category?.CategoryName ?? "N/A"
             }).ToList();
-        }
-
-        public async Task AddToCartAsync(AddToCartDto dto)
-        {
-            var product = await _productRepo.GetByIdAsync(dto.ProductId);
-            if (product == null || product.StockQuantity < dto.Quantity)
-            {
-                throw new Exception("Sản phẩm không tồn tại hoặc số lượng tồn kho không đủ.");
-            }
-
-            var existingItem = await _cartItemRepo.GetQueryable()
-                .FirstOrDefaultAsync(c => c.CustomerId == dto.CustomerId && c.ProductId == dto.ProductId);
-
-            if (existingItem != null)
-            {
-                existingItem.Quantity += dto.Quantity;
-            }
-            else
-            {
-                var cartItem = new CartItem
-                {
-                    CustomerId = dto.CustomerId,
-                    ProductId = dto.ProductId,
-                    Quantity = dto.Quantity
-                };
-                await _cartItemRepo.AddAsync(cartItem);
-            }
-
-            await _cartItemRepo.SaveChangesAsync();
-        }
-
-        public async Task<List<CartItemDto>> GetCartAsync(string customerId)
-        {
-            return await _cartItemRepo.GetQueryable()
-                .Where(c => c.CustomerId == customerId)
-                .Select(c => new CartItemDto
-                {
-                    Id = c.CartItemId,
-                    ProductId = c.ProductId,
-                    ProductName = c.Product.Name,
-                    Quantity = c.Quantity,
-                    Price = c.Product.Price
-                }).ToListAsync();
         }
 
         public async Task<Guid> CheckoutAsync(OrderRequestDto request)
         {
             try
             {
+                DiscountCode? validDiscount = null;
+                if (!string.IsNullOrWhiteSpace(request.DiscountCode))
+                {
+                    var validationResult = await _discountService.ValidateDiscountAsync(request.DiscountCode);
+                    if (!validationResult.Success)
+                    {
+                        throw new Exception(validationResult.Message);
+                    }
+                    validDiscount = validationResult.Discount;
+                }
+
                 var order = new Order
                 {
                     OrderId = Guid.NewGuid(),
@@ -131,7 +144,7 @@ namespace ToyStoreManagement.Application.Services
                     ShippingAddress = request.ShippingAddress,
                     OrderDate = DateTime.UtcNow,
                     Status = OrderStatuses.Pending,
-                    Discount = request.Discount
+                    Discount = 0
                 };
 
                 decimal totalAmount = 0;
@@ -161,13 +174,38 @@ namespace ToyStoreManagement.Application.Services
                     totalAmount += (detail.Quantity * detail.Price);
                 }
 
-                order.TotalAmount = totalAmount;
-                await _orderRepo.AddAsync(order);
+                decimal discountAmount = 0;
+                if (validDiscount != null)
+                {
+                    if (validDiscount.DiscountType == ToyStoreManagement.Domain.Enums.AppEnums.DiscountType.Percentage)
+                    {
+                        discountAmount = totalAmount * (validDiscount.DiscountValue / 100);
+                    }
+                    else
+                    {
+                        discountAmount = validDiscount.DiscountValue;
+                    }
+                    await _discountService.ApplyDiscountAsync(validDiscount.Id);
+                }
 
+                order.TotalAmount = totalAmount;
+                order.Discount = discountAmount;
+                order.FinalAmount = totalAmount - discountAmount;
+                if (order.FinalAmount < 0) order.FinalAmount = 0;
+
+                await _orderRepo.AddAsync(order);
                 await _orderRepo.SaveChangesAsync();
 
+                // Nếu là khách hàng đã đăng nhập, làm sạch giỏ hàng trong DB
+                if (request.CustomerId.HasValue)
+                {
+                    // Lấy userId dưới dạng string từ Identity để xóa giỏ hàng
+                    var userIdStr = request.CustomerId.Value.ToString();
+                    await _cartService.ClearCartAsync(userIdStr);
+                }
+
                 // 1. SIGNALR: Thông báo Real-time cho Admin
-                await _notificationService.SendNotificationAsync($"CÓ ĐƠN HÀNG MỚI: {request.CustomerName} vừa đặt hàng trị giá {totalAmount:N0}đ");
+                await _notificationService.SendNotificationAsync($"CÓ ĐƠN HÀNG MỚI: {request.CustomerName} vừa đặt hàng trị giá {order.FinalAmount:N0}đ");
 
                 // 2. HANGFIRE: Đẩy tác vụ gửi Email vào Background Job (không làm khách hàng phải chờ)
                 BackgroundJob.Enqueue<IEmailService>(emailService => emailService.SendOrderConfirmationEmailAsync(order.CustomerName, order.OrderId.ToString()));
@@ -178,6 +216,30 @@ namespace ToyStoreManagement.Application.Services
             {
                 throw;
             }
+        }
+
+        public async Task<OrderResponseDto> GetOrderDetailsAsync(Guid orderId)
+        {
+            var order = await _orderRepo.GetQueryable()
+                .Include(o => o.Details)
+                .ThenInclude(d => d.Product)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+            if (order == null) throw new KeyNotFoundException("Không tìm thấy đơn hàng.");
+
+            return new OrderResponseDto
+            {
+                OrderId = order.OrderId,
+                Status = order.Status,
+                TotalAmount = order.TotalAmount,
+                FinalAmount = order.FinalAmount,
+                Details = order.Details.Select(d => new OrderDetailResponseDto
+                {
+                    ProductName = d.Product?.Name ?? "N/A",
+                    Quantity = d.Quantity,
+                    Price = d.Price
+                }).ToList()
+            };
         }
 
         public async Task<bool> ProcessPaymentAsync(Guid orderId)
@@ -229,16 +291,21 @@ namespace ToyStoreManagement.Application.Services
             return true;
         }
 
-        public async Task<List<OrderDto>> GetCustomerOrdersAsync(Guid customerId)
+        public async Task<List<OrderDto>> GetCustomerOrdersAsync(string customerId)
         {
+            // Tìm CustomerId Guid từ Identity UserId string nếu cần, 
+            // nhưng ở bước Register tôi đã dùng Email làm UserName và IdentityId cho Customer.
+            // Để đơn giản, tôi sẽ tìm Customer có Email tương ứng hoặc mapping.
+            // Giả sử customerId truyền vào là string IdentityId.
+            
             var orders = await _orderRepo.GetQueryable()
-                .Where(o => o.CustomerId == customerId) // Sửa lỗi logic lấy đơn hàng theo CustomerId
+                .Where(o => o.CustomerId.ToString() == customerId) 
                 .OrderByDescending(o => o.OrderDate)
                 .Select(o => new OrderDto
                 {
                     OrderId = o.OrderId,
                     CustomerName = o.CustomerName,
-                    TotalAmount = o.TotalAmount,
+                    TotalAmount = o.FinalAmount,
                     Status = o.Status,
                     OrderDate = o.OrderDate
                 })

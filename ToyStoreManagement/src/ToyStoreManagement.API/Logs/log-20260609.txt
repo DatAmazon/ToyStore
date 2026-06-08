@@ -1,0 +1,140 @@
+2026-06-09 00:07:53.909 +07:00 [INF] User profile is available. Using 'C:\Users\DELL\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-06-09 00:07:56.002 +07:00 [INF] Executed DbCommand (77ms) [Parameters=[:p_normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='0']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "C##ORACLEDB2026"."ASPNETROLES" "a"
+WHERE "a"."NormalizedName" = :p_normalizedName
+FETCH FIRST 1 ROWS ONLY
+2026-06-09 00:07:56.084 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[:p_normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='0']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "C##ORACLEDB2026"."ASPNETROLES" "a"
+WHERE "a"."NormalizedName" = :p_normalizedName
+FETCH FIRST 1 ROWS ONLY
+2026-06-09 00:07:56.117 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[:p_normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='0']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "C##ORACLEDB2026"."ASPNETUSERS" "a"
+WHERE "a"."NormalizedEmail" = :p_normalizedEmail
+FETCH FIRST 2 ROWS ONLY
+2026-06-09 00:07:56.183 +07:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."SEARCH_NAME" IS NULL
+2026-06-09 00:07:56.572 +07:00 [INF] Now listening on: https://localhost:7205
+2026-06-09 00:07:56.637 +07:00 [INF] Starting Hangfire Server using job storage: 'In-Memory Storage'
+2026-06-09 00:07:56.652 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-06-09 00:07:56.674 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-09 00:07:56.676 +07:00 [INF] Hosting environment: Development
+2026-06-09 00:07:56.677 +07:00 [INF] Content root path: D:\practive\ToyStoreManagement\ToyStoreManagement\src\ToyStoreManagement.API
+2026-06-09 00:07:56.678 +07:00 [INF] Server desktop-eqn2s6d:26936:0310fbfe successfully announced in 4.3104 ms
+2026-06-09 00:07:56.686 +07:00 [INF] Server desktop-eqn2s6d:26936:0310fbfe is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-06-09 00:07:57.008 +07:00 [INF] Server desktop-eqn2s6d:26936:0310fbfe all the dispatchers started
+2026-06-09 00:07:57.317 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/_vs/browserLink - null null
+2026-06-09 00:07:57.317 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/_framework/aspnetcore-browser-refresh.js - null null
+2026-06-09 00:07:57.395 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/_framework/aspnetcore-browser-refresh.js - 200 14941 application/javascript; charset=utf-8 87.4023ms
+2026-06-09 00:07:57.437 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/_vs/browserLink - 200 null text/javascript; charset=UTF-8 130.7702ms
+2026-06-09 00:07:57.494 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/swagger/v1/swagger.json - null null
+2026-06-09 00:07:57.636 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 142.1457ms
+2026-06-09 00:09:29.512 +07:00 [INF] User profile is available. Using 'C:\Users\DELL\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-06-09 00:09:30.554 +07:00 [INF] Executed DbCommand (72ms) [Parameters=[:p_normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='0']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "C##ORACLEDB2026"."ASPNETROLES" "a"
+WHERE "a"."NormalizedName" = :p_normalizedName
+FETCH FIRST 1 ROWS ONLY
+2026-06-09 00:09:30.637 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[:p_normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='0']
+SELECT "a"."Id", "a"."ConcurrencyStamp", "a"."Name", "a"."NormalizedName"
+FROM "C##ORACLEDB2026"."ASPNETROLES" "a"
+WHERE "a"."NormalizedName" = :p_normalizedName
+FETCH FIRST 1 ROWS ONLY
+2026-06-09 00:09:30.664 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[:p_normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='0']
+SELECT "a"."Id", "a"."AccessFailedCount", "a"."ConcurrencyStamp", "a"."Email", "a"."EmailConfirmed", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."SecurityStamp", "a"."TwoFactorEnabled", "a"."UserName"
+FROM "C##ORACLEDB2026"."ASPNETUSERS" "a"
+WHERE "a"."NormalizedEmail" = :p_normalizedEmail
+FETCH FIRST 2 ROWS ONLY
+2026-06-09 00:09:30.707 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."SEARCH_NAME" IS NULL
+2026-06-09 00:09:30.850 +07:00 [INF] Now listening on: https://localhost:7205
+2026-06-09 00:09:30.911 +07:00 [INF] Starting Hangfire Server using job storage: 'In-Memory Storage'
+2026-06-09 00:09:30.921 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-06-09 00:09:30.937 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-09 00:09:30.939 +07:00 [INF] Hosting environment: Development
+2026-06-09 00:09:30.940 +07:00 [INF] Server desktop-eqn2s6d:13508:15cfdc3c successfully announced in 3.0025 ms
+2026-06-09 00:09:30.941 +07:00 [INF] Content root path: D:\practive\ToyStoreManagement\ToyStoreManagement\src\ToyStoreManagement.API
+2026-06-09 00:09:30.948 +07:00 [INF] Server desktop-eqn2s6d:13508:15cfdc3c is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-06-09 00:09:31.177 +07:00 [INF] Server desktop-eqn2s6d:13508:15cfdc3c all the dispatchers started
+2026-06-09 00:09:31.452 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/_framework/aspnetcore-browser-refresh.js - null null
+2026-06-09 00:09:31.453 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/_vs/browserLink - null null
+2026-06-09 00:09:31.499 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/_framework/aspnetcore-browser-refresh.js - 200 14941 application/javascript; charset=utf-8 57.1359ms
+2026-06-09 00:09:31.564 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/_vs/browserLink - 200 null text/javascript; charset=UTF-8 124.1978ms
+2026-06-09 00:09:31.619 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/swagger/v1/swagger.json - null null
+2026-06-09 00:09:31.764 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 144.9387ms
+2026-06-09 00:13:33.619 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Sales/my-orders - null null
+2026-06-09 00:13:33.636 +07:00 [INF] CORS policy execution successful.
+2026-06-09 00:13:33.701 +07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-06-09 00:13:33.728 +07:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-06-09 00:13:33.732 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Sales/my-orders - 401 0 null 112.5592ms
+2026-06-09 00:13:33.735 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Sales/my-orders - null null
+2026-06-09 00:13:33.750 +07:00 [INF] CORS policy execution successful.
+2026-06-09 00:13:33.761 +07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-06-09 00:13:33.767 +07:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2026-06-09 00:13:33.773 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Sales/my-orders - 401 0 null 37.9298ms
+2026-06-09 00:13:34.671 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Categories/GetAll - null null
+2026-06-09 00:13:34.682 +07:00 [INF] CORS policy execution successful.
+2026-06-09 00:13:34.699 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.CategoriesController.GetAll (ToyStoreManagement)'
+2026-06-09 00:13:34.745 +07:00 [INF] Route matched with {action = "GetAll", controller = "Categories"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ToyStoreManagement.Controllers.Admin.CategoriesController (ToyStoreManagement).
+2026-06-09 00:13:35.092 +07:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-06-09 00:13:35.128 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='0']
+SELECT "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM "C##ORACLEDB2026"."CATEGORY" "c"
+2026-06-09 00:13:35.215 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=5 - null null
+2026-06-09 00:13:35.222 +07:00 [INF] CORS policy execution successful.
+2026-06-09 00:13:35.224 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-09 00:13:35.225 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.CategoryDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-09 00:13:35.257 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-09 00:13:35.266 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Categories/GetAll - null null
+2026-06-09 00:13:35.271 +07:00 [INF] CORS policy execution successful.
+2026-06-09 00:13:35.272 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.CategoriesController.GetAll (ToyStoreManagement)'
+2026-06-09 00:13:35.273 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.CategoriesController.GetAll (ToyStoreManagement) in 513.5162ms
+2026-06-09 00:13:35.275 +07:00 [INF] Route matched with {action = "GetAll", controller = "Categories"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ToyStoreManagement.Controllers.Admin.CategoriesController (ToyStoreManagement).
+2026-06-09 00:13:35.278 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.CategoriesController.GetAll (ToyStoreManagement)'
+2026-06-09 00:13:35.288 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Categories/GetAll - 200 null application/json; charset=utf-8 617.5365ms
+2026-06-09 00:13:35.342 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='0']
+SELECT "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM "C##ORACLEDB2026"."CATEGORY" "c"
+2026-06-09 00:13:35.352 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.CategoryDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-09 00:13:35.357 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.CategoriesController.GetAll (ToyStoreManagement) in 77.2613ms
+2026-06-09 00:13:35.361 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.CategoriesController.GetAll (ToyStoreManagement)'
+2026-06-09 00:13:35.365 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Categories/GetAll - 200 null application/json; charset=utf-8 98.9959ms
+2026-06-09 00:13:36.236 +07:00 [INF] Executed DbCommand (25ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-09 00:13:36.278 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-09 00:13:36.327 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 1059.5763ms
+2026-06-09 00:13:36.330 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=5 - null null
+2026-06-09 00:13:36.337 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-09 00:13:36.348 +07:00 [INF] CORS policy execution successful.
+2026-06-09 00:13:36.352 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=5 - 200 null application/json; charset=utf-8 1137.45ms
+2026-06-09 00:13:36.353 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-09 00:13:36.367 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-09 00:13:36.375 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-09 00:13:36.377 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 7.0724ms
+2026-06-09 00:13:36.379 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-09 00:13:36.381 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=5 - 200 null application/json; charset=utf-8 51.5293ms

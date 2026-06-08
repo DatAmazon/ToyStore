@@ -3,11 +3,11 @@ namespace ToyStoreManagement.Application.DTOs.Sales
     public class OrderRequestDto
     {
         //Order Request
-        public Guid CustomerId { get; set; }
+        public Guid? CustomerId { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public string CustomerPhone { get; set; } = string.Empty;
         public string ShippingAddress { get; set; } = string.Empty;
-        public decimal Discount { get; set; }
+        public string? DiscountCode { get; set; }
         public List<OrderRequestItemDto> Items { get; set; } = new List<OrderRequestItemDto>();
     }
 

@@ -8,6 +8,7 @@ namespace ToyStoreManagement.Application.Interfaces
     public interface ICartService
     {
         Task AddToCartAsync(string userId, AddToCartDto dto);
+        Task UpdateQuantityAsync(string userId, UpdateCartItemDto dto);
         Task<IEnumerable<CartItemDto>> GetCartItemsAsync(string userId);
         Task RemoveFromCartAsync(Guid cartItemId);
         Task ClearCartAsync(string userId);

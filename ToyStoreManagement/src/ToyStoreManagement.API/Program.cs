@@ -16,6 +16,9 @@ using ToyStoreManagement.Application.Interfaces;
 using ToyStoreManagement.API.Services;
 using ToyStoreManagement.Infrastructure;
 
+using ToyStoreManagement.Infrastructure.Persistence;
+using ToyStoreManagement.Domain.Constants;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Cấu hình Serilog
@@ -123,6 +126,10 @@ app.MapHub<NotificationHub>("/hubs/notification");
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    
+    // Seed Roles and Admin
+    await DbInitializer.SeedRolesAndAdminAsync(services);
+
     var context = services.GetRequiredService<ToyStoreManagement.Infrastructure.Persistence.AppDbContext>();
     var productsToUpdate = await context.Products
         .Where(p => p.SearchName == null)

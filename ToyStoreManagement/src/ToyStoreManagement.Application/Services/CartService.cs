@@ -8,6 +8,8 @@ using ToyStoreManagement.Application.Interfaces;
 using ToyStoreManagement.Domain.Entities;
 using ToyStoreManagement.Domain.Interfaces;
 
+using ToyStoreManagement.Domain.Constants;
+
 namespace ToyStoreManagement.Application.Services
 {
     public class CartService : ICartService
@@ -24,7 +26,7 @@ namespace ToyStoreManagement.Application.Services
         public async Task AddToCartAsync(string userId, AddToCartDto dto)
         {
             var cartItem = await _cartRepo.GetQueryable()
-                .FirstOrDefaultAsync(c => c.CustomerId == userId && c.ProductId == dto.ProductId);
+                .FirstOrDefaultAsync(c => c.CustomerId == userId && c.ProductId == dto.ProductId && c.Status == dto.Status);
 
             if (cartItem != null)
             {
@@ -37,9 +39,28 @@ namespace ToyStoreManagement.Application.Services
                     CartItemId = Guid.NewGuid(),
                     CustomerId = userId,
                     ProductId = dto.ProductId,
-                    Quantity = dto.Quantity
+                    Quantity = dto.Quantity,
+                    Status = CartItemStatuses.Active
                 };
                 await _cartRepo.AddAsync(cartItem);
+            }
+            await _cartRepo.SaveChangesAsync();
+        }
+
+        public async Task UpdateQuantityAsync(string userId, UpdateCartItemDto dto)
+        {
+            var cartItem = await _cartRepo.GetQueryable()
+                .FirstOrDefaultAsync(c => c.CartItemId == dto.CartItemId && c.CustomerId == userId);
+
+            if (cartItem == null) throw new KeyNotFoundException("Không tìm thấy sản phẩm trong giỏ hàng.");
+
+            if (dto.Quantity <= 0)
+            {
+                _cartRepo.Delete(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity = dto.Quantity;
             }
             await _cartRepo.SaveChangesAsync();
         }
@@ -55,7 +76,8 @@ namespace ToyStoreManagement.Application.Services
                     ProductId = c.ProductId,
                     ProductName = c.Product != null ? c.Product.Name : "N/A",
                     Price = c.Product != null ? c.Product.Price : 0,
-                    Quantity = c.Quantity
+                    Quantity = c.Quantity,
+                    Status = c.Status
                 })
                 .ToListAsync();
         }
@@ -80,7 +102,7 @@ namespace ToyStoreManagement.Application.Services
         public async Task<decimal> GetCartTotalAsync(string userId)
         {
             var items = await _cartRepo.GetQueryable()
-                .Where(c => c.CustomerId == userId)
+                .Where(c => c.CustomerId == userId && c.Status == CartItemStatuses.Active)
                 .Include(c => c.Product)
                 .ToListAsync();
 

@@ -3102,3 +3102,596 @@ ORDER BY "p0"."PRICE"
 2026-06-05 22:03:43.505 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 38.2568ms
 2026-06-05 22:03:43.508 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
 2026-06-05 22:03:43.510 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?minPrice=100000&maxPrice=600000&sort=price_asc&pageNumber=1&pageSize=240 - 200 null application/json; charset=utf-8 53.8646ms
+2026-06-05 22:05:38.761 +07:00 [INF] Executed DbCommand (61ms) [Parameters=[], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."SEARCH_NAME" IS NULL
+2026-06-05 22:05:39.053 +07:00 [INF] User profile is available. Using 'C:\Users\DELL\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-06-05 22:05:39.610 +07:00 [INF] Now listening on: https://localhost:7205
+2026-06-05 22:05:39.816 +07:00 [INF] Starting Hangfire Server using job storage: 'In-Memory Storage'
+2026-06-05 22:05:39.818 +07:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-06-05 22:05:39.877 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-05 22:05:39.880 +07:00 [INF] Hosting environment: Development
+2026-06-05 22:05:39.883 +07:00 [INF] Content root path: D:\practive\ToyStoreManagement\ToyStoreManagement\src\ToyStoreManagement.API
+2026-06-05 22:05:39.892 +07:00 [INF] Server desktop-eqn2s6d:37880:ba646cae successfully announced in 12.9033 ms
+2026-06-05 22:05:39.901 +07:00 [INF] Server desktop-eqn2s6d:37880:ba646cae is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-06-05 22:05:40.125 +07:00 [INF] Server desktop-eqn2s6d:37880:ba646cae all the dispatchers started
+2026-06-05 22:05:40.757 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/_vs/browserLink - null null
+2026-06-05 22:05:40.759 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/_framework/aspnetcore-browser-refresh.js - null null
+2026-06-05 22:05:40.835 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/_framework/aspnetcore-browser-refresh.js - 200 14941 application/javascript; charset=utf-8 94.5534ms
+2026-06-05 22:05:40.883 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/_vs/browserLink - 200 null text/javascript; charset=UTF-8 143.5589ms
+2026-06-05 22:05:40.948 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/swagger/v1/swagger.json - null null
+2026-06-05 22:05:41.097 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 149.5711ms
+2026-06-05 22:08:28.597 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&minPrice=500000&maxPrice=1000000&sortOrder=price_desc&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:28.616 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:28.678 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:28.744 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:29.107 +07:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-06-05 22:08:29.659 +07:00 [INF] Executed DbCommand (132ms) [Parameters=[:p_Format='?' (Size = 2000), :p_Format3='?' (Size = 255), :p_minPrice_Value='?' (DbType = Decimal), :p_maxPrice_Value='?' (DbType = Decimal), :p_p='?' (DbType = Int32), :p_p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE ((((((NOT ("p"."IS_DELETED" <> 0 )) AND ((("p"."SEARCH_NAME" IS NOT NULL AND ("p"."SEARCH_NAME" LIKE :p_Format)) OR (LOWER("p"."NAME") LIKE :p_Format3))))) AND ("p"."PRICE" >= :p_minPrice_Value))) AND ("p"."PRICE" <= :p_maxPrice_Value))
+    ORDER BY "p"."PRICE" DESC
+    OFFSET :p_p ROWS FETCH NEXT :p_p7 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."PRICE" DESC
+2026-06-05 22:08:29.798 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:29.896 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 1138.6809ms
+2026-06-05 22:08:29.902 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:29.912 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&minPrice=500000&maxPrice=1000000&sortOrder=price_desc&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 1315.0594ms
+2026-06-05 22:08:33.084 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_desc&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:33.091 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:33.095 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:33.097 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:33.381 +07:00 [INF] Executed DbCommand (52ms) [Parameters=[:p_Format='?' (Size = 2000), :p_Format3='?' (Size = 255), :p_p='?' (DbType = Int32), :p_p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE ((NOT ("p"."IS_DELETED" <> 0 )) AND ((("p"."SEARCH_NAME" IS NOT NULL AND ("p"."SEARCH_NAME" LIKE :p_Format)) OR (LOWER("p"."NAME") LIKE :p_Format3))))
+    ORDER BY "p"."PRICE" DESC
+    OFFSET :p_p ROWS FETCH NEXT :p_p5 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."PRICE" DESC
+2026-06-05 22:08:33.398 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:33.410 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 306.931ms
+2026-06-05 22:08:33.417 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:33.424 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_desc&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 340.2694ms
+2026-06-05 22:08:38.948 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:38.952 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:38.957 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:38.958 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:39.001 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[:p_Format='?' (Size = 2000), :p_Format3='?' (Size = 255), :p_p='?' (DbType = Int32), :p_p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE ((NOT ("p"."IS_DELETED" <> 0 )) AND ((("p"."SEARCH_NAME" IS NOT NULL AND ("p"."SEARCH_NAME" LIKE :p_Format)) OR (LOWER("p"."NAME") LIKE :p_Format3))))
+    ORDER BY "p"."PRICE"
+    OFFSET :p_p ROWS FETCH NEXT :p_p5 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."PRICE"
+2026-06-05 22:08:39.012 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:39.024 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 62.0609ms
+2026-06-05 22:08:39.028 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:39.030 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 81.4244ms
+2026-06-05 22:08:42.742 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:42.745 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:42.746 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:42.748 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:42.801 +07:00 [INF] Executed DbCommand (31ms) [Parameters=[:p_Format='?' (Size = 2000), :p_Format3='?' (Size = 255), :p_p='?' (DbType = Int32), :p_p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE ((NOT ("p"."IS_DELETED" <> 0 )) AND ((("p"."SEARCH_NAME" IS NOT NULL AND ("p"."SEARCH_NAME" LIKE :p_Format)) OR (LOWER("p"."NAME") LIKE :p_Format3))))
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p5 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 22:08:42.810 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:42.814 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 62.3291ms
+2026-06-05 22:08:42.817 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:42.819 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 77.4559ms
+2026-06-05 22:08:45.296 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:45.299 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:45.302 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:45.303 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:45.308 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:45.317 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 10.3519ms
+2026-06-05 22:08:45.322 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:45.325 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 28.9928ms
+2026-06-05 22:08:51.334 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:51.336 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - null null
+2026-06-05 22:08:51.337 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:51.339 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:51.340 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:51.341 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:51.342 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:51.343 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:51.346 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:51.348 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:51.349 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.242ms
+2026-06-05 22:08:51.351 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.4618ms
+2026-06-05 22:08:51.352 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:51.353 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:51.355 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 20.8533ms
+2026-06-05 22:08:51.355 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=12 - 200 null application/json; charset=utf-8 19.5791ms
+2026-06-05 22:08:55.805 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=24 - null null
+2026-06-05 22:08:55.807 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:08:55.808 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:55.810 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:08:55.835 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[:p_Format='?' (Size = 2000), :p_Format3='?' (Size = 255), :p_p='?' (DbType = Int32), :p_p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE ((NOT ("p"."IS_DELETED" <> 0 )) AND ((("p"."SEARCH_NAME" IS NOT NULL AND ("p"."SEARCH_NAME" LIKE :p_Format)) OR (LOWER("p"."NAME") LIKE :p_Format3))))
+    ORDER BY "p"."PRICE"
+    OFFSET :p_p ROWS FETCH NEXT :p_p5 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."PRICE"
+2026-06-05 22:08:55.861 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:08:55.865 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 51.6325ms
+2026-06-05 22:08:55.867 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:08:55.870 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?keyword=r&sortOrder=price_asc&pageNumber=1&pageSize=24 - 200 null application/json; charset=utf-8 65.2567ms
+2026-06-05 22:09:17.392 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/61e6952c-5013-4b55-8fa1-6bbf47d1ea71 - null null
+2026-06-05 22:09:17.398 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:17.400 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:09:17.419 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:17.492 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:09:17.671 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:09:17.688 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 264.0666ms
+2026-06-05 22:09:17.690 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/61e6952c-5013-4b55-8fa1-6bbf47d1ea71 - null null
+2026-06-05 22:09:17.692 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:09:17.716 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:17.720 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:09:17.718 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/61e6952c-5013-4b55-8fa1-6bbf47d1ea71 - 200 null application/json; charset=utf-8 325.5032ms
+2026-06-05 22:09:17.722 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:17.752 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:09:17.762 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:09:17.768 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 29.6996ms
+2026-06-05 22:09:17.775 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:09:17.779 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/61e6952c-5013-4b55-8fa1-6bbf47d1ea71 - 200 null application/json; charset=utf-8 89.1307ms
+2026-06-05 22:09:32.158 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:09:32.162 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:32.164 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:32.166 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:32.190 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 22:09:32.197 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:09:32.202 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 33.3803ms
+2026-06-05 22:09:32.203 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:09:32.204 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:32.210 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:32.212 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 54.0148ms
+2026-06-05 22:09:32.213 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:32.219 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:32.224 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:09:32.229 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 6.0126ms
+2026-06-05 22:09:32.235 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:32.237 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 33.8022ms
+2026-06-05 22:09:39.635 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:09:39.645 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:39.647 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:39.650 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:39.657 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:09:39.663 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 7.7644ms
+2026-06-05 22:09:39.664 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:09:39.668 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:39.676 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:39.678 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 43.1703ms
+2026-06-05 22:09:39.680 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:39.692 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:39.698 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:09:39.703 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 6.7917ms
+2026-06-05 22:09:39.706 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:39.709 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 44.861ms
+2026-06-05 22:09:40.609 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:09:40.615 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:40.617 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:40.619 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:40.627 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:09:40.629 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 3.6624ms
+2026-06-05 22:09:40.631 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:09:40.632 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:40.637 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:09:40.638 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 29.6707ms
+2026-06-05 22:09:40.641 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:40.652 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:09:40.659 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:09:40.664 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 6.0145ms
+2026-06-05 22:09:40.667 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:09:40.669 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 38.196ms
+2026-06-05 22:10:28.109 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:10:28.120 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:10:28.121 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:28.123 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:10:28.127 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:10:28.131 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 5.5368ms
+2026-06-05 22:10:28.132 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:10:28.136 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:28.143 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:10:28.144 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 35.9213ms
+2026-06-05 22:10:28.153 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:28.160 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:10:28.164 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:10:28.169 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 6.5032ms
+2026-06-05 22:10:28.171 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:28.174 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 41.216ms
+2026-06-05 22:10:58.293 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:10:58.296 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:10:58.299 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:58.301 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:10:58.306 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:10:58.308 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 3.2439ms
+2026-06-05 22:10:58.314 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:10:58.315 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:58.321 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:10:58.322 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 32.0414ms
+2026-06-05 22:10:58.323 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:58.330 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:10:58.335 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:10:58.338 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.4205ms
+2026-06-05 22:10:58.340 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:10:58.342 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 27.7511ms
+2026-06-05 22:26:18.487 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 22:26:18.491 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:26:18.492 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:26:18.494 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:26:18.510 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:26:18.516 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:26:18.520 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 21.7572ms
+2026-06-05 22:26:18.526 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 22:26:18.528 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:26:18.535 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:26:18.538 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 51.4093ms
+2026-06-05 22:26:18.541 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:26:18.555 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:26:18.570 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:26:18.578 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:26:18.584 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 22.7157ms
+2026-06-05 22:26:18.589 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:26:18.593 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 71.7148ms
+2026-06-05 22:31:25.860 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:31:25.868 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:31:25.869 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:31:25.872 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:31:25.891 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 22:31:25.900 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:31:25.905 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 28.2628ms
+2026-06-05 22:31:25.908 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:31:25.909 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:31:25.913 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:31:25.916 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 56.5333ms
+2026-06-05 22:31:25.918 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:31:25.931 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:31:25.940 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:31:25.946 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 7.2496ms
+2026-06-05 22:31:25.956 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:31:25.960 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 52.3728ms
+2026-06-05 22:32:19.134 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 22:32:19.170 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:32:19.173 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:32:19.175 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:32:19.193 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:32:19.196 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:32:19.198 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 19.6366ms
+2026-06-05 22:32:19.199 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 22:32:19.201 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:32:19.204 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:32:19.207 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 73.6512ms
+2026-06-05 22:32:19.215 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:32:19.221 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:32:19.234 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:32:19.240 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:32:19.242 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 16.5868ms
+2026-06-05 22:32:19.244 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:32:19.246 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 46.5376ms
+2026-06-05 22:56:48.202 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:56:48.224 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:56:48.229 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.234 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:56:48.252 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 22:56:48.258 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:56:48.272 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 30.8214ms
+2026-06-05 22:56:48.279 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.272 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:56:48.283 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 81.5679ms
+2026-06-05 22:56:48.305 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:56:48.317 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.323 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:56:48.333 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:56:48.341 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 10.2353ms
+2026-06-05 22:56:48.347 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.353 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 81.0562ms
+2026-06-05 22:56:48.460 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:56:48.472 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:56:48.478 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.482 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:56:48.492 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:56:48.500 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 9.9789ms
+2026-06-05 22:56:48.503 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:56:48.507 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.519 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:56:48.522 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 61.9956ms
+2026-06-05 22:56:48.525 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.535 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:56:48.539 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:56:48.542 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.6037ms
+2026-06-05 22:56:48.546 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.547 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 44.6872ms
+2026-06-05 22:56:48.856 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:56:48.867 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:56:48.870 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.874 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:56:48.882 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:56:48.887 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 6.8712ms
+2026-06-05 22:56:48.889 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 22:56:48.893 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.900 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:56:48.904 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 47.6915ms
+2026-06-05 22:56:48.907 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.922 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:56:48.929 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 22:56:48.934 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 5.3978ms
+2026-06-05 22:56:48.937 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 22:56:48.939 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 50.0599ms
+2026-06-05 22:58:28.084 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 22:58:28.095 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:58:28.098 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:58:28.099 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:58:28.111 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:58:28.115 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:58:28.117 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 16.3844ms
+2026-06-05 22:58:28.119 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 22:58:28.122 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:58:28.130 +07:00 [INF] CORS policy execution successful.
+2026-06-05 22:58:28.131 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 47.1855ms
+2026-06-05 22:58:28.132 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:58:28.137 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 22:58:28.148 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 22:58:28.153 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 22:58:28.157 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 18.3556ms
+2026-06-05 22:58:28.159 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 22:58:28.160 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 41.274ms
+2026-06-05 23:16:19.784 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:16:19.793 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:16:19.796 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:19.799 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:16:19.819 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 23:16:19.829 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:16:19.834 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 28.9983ms
+2026-06-05 23:16:19.835 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:16:19.839 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:19.843 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:16:19.846 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 62.1357ms
+2026-06-05 23:16:19.849 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:19.856 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:16:19.863 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:16:19.869 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 7.0768ms
+2026-06-05 23:16:19.873 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:19.877 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 41.1933ms
+2026-06-05 23:16:20.939 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:16:20.944 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:16:20.946 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:20.948 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:16:20.953 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:16:20.959 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 6.9133ms
+2026-06-05 23:16:20.968 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:16:20.971 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:20.980 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:16:20.982 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 43.8131ms
+2026-06-05 23:16:20.985 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:20.999 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:16:21.006 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:16:21.011 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 5.1195ms
+2026-06-05 23:16:21.015 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:16:21.019 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 58.9083ms
+2026-06-05 23:16:21.107 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 23:16:21.114 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:16:21.116 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 23:16:21.118 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:16:21.162 +07:00 [INF] Executed DbCommand (37ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 23:16:21.170 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 23:16:21.175 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 53.3453ms
+2026-06-05 23:16:21.177 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 23:16:21.180 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 23:16:21.187 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:16:21.191 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 83.6333ms
+2026-06-05 23:16:21.194 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 23:16:21.205 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:16:21.221 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 23:16:21.228 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 23:16:21.236 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 25.2966ms
+2026-06-05 23:16:21.241 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 23:16:21.244 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 66.895ms
+2026-06-05 23:25:35.808 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - null null
+2026-06-05 23:25:35.816 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:25:35.820 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 23:25:35.822 +07:00 [INF] Route matched with {action = "GetById", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(System.Guid) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:25:35.846 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[:p_p='?' (DbType = Binary)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+FROM "C##ORACLEDB2026"."PRODUCT" "p"
+WHERE "p"."PRODUCT_ID" = :p_p
+FETCH FIRST 1 ROWS ONLY
+2026-06-05 23:25:35.854 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[ToyStoreManagement.Domain.Entities.Product, ToyStoreManagement.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-06-05 23:25:35.865 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement) in 36.5391ms
+2026-06-05 23:25:35.869 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetById (ToyStoreManagement)'
+2026-06-05 23:25:35.871 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products/f6b57249-f16f-4e3f-8af0-bc3cd6048076 - 200 null application/json; charset=utf-8 63.4623ms
+2026-06-05 23:28:26.841 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:28:26.855 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:28:26.857 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:28:26.859 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:28:26.872 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 23:28:26.880 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:28:26.885 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 23.0039ms
+2026-06-05 23:28:26.886 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:28:26.893 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:28:26.900 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:28:26.901 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 60.5434ms
+2026-06-05 23:28:26.903 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:28:26.912 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:28:26.920 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:28:26.922 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 3.7171ms
+2026-06-05 23:28:26.924 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:28:26.925 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 39.3631ms
+2026-06-05 23:55:42.906 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:55:42.959 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:55:42.966 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:42.970 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:55:43.050 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[:p_p='?' (DbType = Int32), :p_p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='0']
+SELECT "p0"."PRODUCT_ID", "p0"."BADGE", "p0"."BADGE_COLOR", "p0"."CATEGORY_ID", "p0"."DESCRIPTION", "p0"."IMAGE_URL", "p0"."IS_DELETED", "p0"."MANUFACTURER", "p0"."MINIMUM_AGE", "p0"."NAME", "p0"."PRICE", "p0"."RATING", "p0"."REVIEWS", "p0"."SEARCH_NAME", "p0"."STOCK_QUANTITY", "c"."CATEGORY_ID", "c"."CATEGORY_NAME"
+FROM (
+    SELECT "p"."PRODUCT_ID", "p"."BADGE", "p"."BADGE_COLOR", "p"."CATEGORY_ID", "p"."DESCRIPTION", "p"."IMAGE_URL", "p"."IS_DELETED", "p"."MANUFACTURER", "p"."MINIMUM_AGE", "p"."NAME", "p"."PRICE", "p"."RATING", "p"."REVIEWS", "p"."SEARCH_NAME", "p"."STOCK_QUANTITY"
+    FROM "C##ORACLEDB2026"."PRODUCT" "p"
+    WHERE NOT ("p"."IS_DELETED" <> 0 )
+    ORDER BY "p"."NAME"
+    OFFSET :p_p ROWS FETCH NEXT :p_p1 ROWS ONLY
+) "p0"
+INNER JOIN "C##ORACLEDB2026"."CATEGORY" "c" ON "p0"."CATEGORY_ID" = "c"."CATEGORY_ID"
+ORDER BY "p0"."NAME"
+2026-06-05 23:55:43.065 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:55:43.071 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 90.2304ms
+2026-06-05 23:55:43.073 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:55:43.083 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:43.165 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:55:43.180 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 273.7812ms
+2026-06-05 23:55:43.183 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:43.192 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:55:43.196 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:55:43.199 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.365ms
+2026-06-05 23:55:43.201 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:43.203 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 130.3528ms
+2026-06-05 23:55:50.619 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:55:50.659 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:55:50.662 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:50.665 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:55:50.672 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:55:50.679 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 7.7755ms
+2026-06-05 23:55:50.690 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:55:50.692 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:50.700 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:55:50.702 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 82.6578ms
+2026-06-05 23:55:50.708 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:50.729 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:55:50.733 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:55:50.736 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.5199ms
+2026-06-05 23:55:50.739 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:55:50.740 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 50.1505ms
+2026-06-05 23:59:50.296 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:59:50.300 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:59:50.301 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:59:50.302 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:59:50.305 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:59:50.309 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 4.899ms
+2026-06-05 23:59:50.315 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - null null
+2026-06-05 23:59:50.315 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:59:50.319 +07:00 [INF] CORS policy execution successful.
+2026-06-05 23:59:50.320 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 24.6885ms
+2026-06-05 23:59:50.322 +07:00 [INF] Executing endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:59:50.332 +07:00 [INF] Route matched with {action = "GetAllProducts", controller = "Products"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts(System.String, System.Nullable`1[System.Guid], System.Nullable`1[System.Decimal], System.Nullable`1[System.Decimal], System.String, Int32, Int32) on controller ToyStoreManagement.Controllers.Admin.ProductsController (ToyStoreManagement).
+2026-06-05 23:59:50.335 +07:00 [INF] Executing OkObjectResult, writing value of type 'ToyStoreManagement.Application.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ToyStoreManagement.Application.DTOs.ProductDto, ToyStoreManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-05 23:59:50.338 +07:00 [INF] Executed action ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement) in 3.3547ms
+2026-06-05 23:59:50.343 +07:00 [INF] Executed endpoint 'ToyStoreManagement.Controllers.Admin.ProductsController.GetAllProducts (ToyStoreManagement)'
+2026-06-05 23:59:50.345 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7205/api/Products?pageNumber=1&pageSize=30 - 200 null application/json; charset=utf-8 30.0738ms
