@@ -1,12 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToyStoreManagement.Application.DTOs.Common;
 using ToyStoreManagement.Application.Interfaces;
+using ToyStoreManagement.Domain.Constants;
 using ToyStoreManagement.Domain.Entities;
 
 namespace ToyStoreManagement.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = AppRoles.Admin)]
     public class ProductImagesController : ControllerBase
     {
         private readonly IImageService _imageService;
@@ -35,6 +38,7 @@ namespace ToyStoreManagement.Controllers.Admin
                 : BadRequest(ApiResponse<object>.FailureResponse(result.Message));
         }
 
+        [AllowAnonymous]
         [HttpPut("{productId}/main/{imageId}")]
         public async Task<IActionResult> SetMain(Guid productId, Guid imageId)
         {
@@ -55,6 +59,7 @@ namespace ToyStoreManagement.Controllers.Admin
             return Ok(ApiResponse<object>.SuccessResponse(null, "Image deleted successfully"));
         }
 
+        [AllowAnonymous]
         [HttpGet("product/{productId}")]
         public async Task<IActionResult> GetByProduct(Guid productId)
         {

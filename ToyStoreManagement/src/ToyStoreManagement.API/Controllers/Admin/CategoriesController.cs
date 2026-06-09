@@ -16,7 +16,7 @@ namespace ToyStoreManagement.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = AppRoles.Admin)]
+    [Authorize(Roles = AppRoles.Admin)]
     public class CategoriesController : BaseCrudController<Category>
     {
         private readonly ICategoriesService _categoriesService;
@@ -29,6 +29,7 @@ namespace ToyStoreManagement.Controllers.Admin
         }
 
         [HttpGet("GetAll")]
+        [AllowAnonymous]
         public override async Task<IActionResult> GetAll()
         {
             var categories = await _categoriesService.GetAllAsync();

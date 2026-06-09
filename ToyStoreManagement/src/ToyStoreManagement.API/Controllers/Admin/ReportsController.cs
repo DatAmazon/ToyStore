@@ -44,5 +44,37 @@ namespace ToyStoreManagement.Controllers.Admin
                 return BadRequest($"Lỗi xuất file: {ex.Message}");
             }
         }
+
+        [HttpGet("orders/excel")]
+        public async Task<IActionResult> ExportOrdersExcel([FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
+        {
+            try
+            {
+                var fileBytes = await _reportService.GetOrderExcelReportAsync(fromDate, toDate);
+                return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"OrdersReport_{DateTime.Now:yyyyMMdd_HHmm}.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Lỗi xuất file: {ex.Message}");
+            }
+        }
+
+        [HttpGet("invoice/{id}/pdf")]
+        public async Task<IActionResult> ExportInvoicePdf(Guid id)
+        {
+            try
+            {
+                var fileBytes = await _reportService.GetInvoicePdfAsync(id);
+                return File(fileBytes, "application/pdf", $"Invoice_{id}_{DateTime.Now:yyyyMMdd}.pdf");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Lỗi xuất hóa đơn: {ex.Message}");
+            }
+        }
     }
 }

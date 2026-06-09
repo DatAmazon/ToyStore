@@ -16,7 +16,7 @@ namespace ToyStoreManagement.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = AppRoles.Admin)]
+    [Authorize(Roles = AppRoles.Admin)]
     public class ProductsController : BaseCrudController<Product>
     {
         private readonly IProductService _productService;
@@ -35,6 +35,7 @@ namespace ToyStoreManagement.Controllers.Admin
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllProducts(
             [FromQuery] string? keyword,

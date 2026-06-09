@@ -48,16 +48,16 @@ namespace ToyStoreManagement.Application.Services.AdminService
                 }
 
                 if (minPrice.HasValue)
-                    query = query.Where((Product p) => p.Price >= minPrice.Value);
+                    query = query.Where((Product p) => (p.DiscountPrice ?? p.Price) >= minPrice.Value);
 
                 if (maxPrice.HasValue)
-                    query = query.Where((Product p) => p.Price <= maxPrice.Value);
+                    query = query.Where((Product p) => (p.DiscountPrice ?? p.Price) <= maxPrice.Value);
 
                 // Sorting
                 query = sortOrder?.ToLower() switch
                 {
-                    "price_asc" => query.OrderBy((Product p) => p.Price),
-                    "price_desc" => query.OrderByDescending((Product p) => p.Price),
+                    "price_asc" => query.OrderBy((Product p) => p.DiscountPrice ?? p.Price),
+                    "price_desc" => query.OrderByDescending((Product p) => p.DiscountPrice ?? p.Price),
                     "newest" => query.OrderByDescending((Product p) => p.ProductId),
                     _ => query.OrderBy((Product p) => p.Name),
                 };
@@ -102,6 +102,18 @@ namespace ToyStoreManagement.Application.Services.AdminService
         {
             if (string.IsNullOrEmpty(product.Name)) return (false, "Name cannot be empty", null);
             if (product.Price < 0) return (false, "Price cannot be negative", null);
+
+            // TỰ ĐỘNG TÍNH TOÁN GIẢM GIÁ
+            if (product.DiscountPercentage.HasValue && product.DiscountPercentage > 0)
+            {
+                // Ưu tiên tính theo % nếu có
+                product.DiscountPrice = product.Price * (1 - (decimal)product.DiscountPercentage.Value / 100);
+            }
+            else if (product.DiscountPrice.HasValue && product.DiscountPrice > 0)
+            {
+                // Nếu chỉ có giá tiền, tính ngược lại % để hiển thị nhãn
+                product.DiscountPercentage = (int)((product.Price - product.DiscountPrice.Value) / product.Price * 100);
+            }
 
             product.ProductId = Guid.NewGuid();
             product.SearchName = ToyStoreManagement.Application.Helpers.StringHelper.Unaccent(product.Name);
@@ -176,6 +188,24 @@ namespace ToyStoreManagement.Application.Services.AdminService
 
             existingProduct.Name = product.Name;
             existingProduct.Price = product.Price;
+
+            // TỰ ĐỘNG TÍNH TOÁN GIẢM GIÁ
+            if (product.DiscountPercentage.HasValue && product.DiscountPercentage > 0)
+            {
+                existingProduct.DiscountPercentage = product.DiscountPercentage;
+                existingProduct.DiscountPrice = product.Price * (1 - (decimal)product.DiscountPercentage.Value / 100);
+            }
+            else if (product.DiscountPrice.HasValue && product.DiscountPrice > 0)
+            {
+                existingProduct.DiscountPrice = product.DiscountPrice;
+                existingProduct.DiscountPercentage = (int)((product.Price - product.DiscountPrice.Value) / product.Price * 100);
+            }
+            else
+            {
+                existingProduct.DiscountPrice = null;
+                existingProduct.DiscountPercentage = null;
+            }
+
             existingProduct.StockQuantity = product.StockQuantity;
             existingProduct.MinimumAge = product.MinimumAge;
             existingProduct.Manufacturer = product.Manufacturer;

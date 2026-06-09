@@ -45,6 +45,7 @@ namespace ToyStoreManagement.Application.Services
                     Id = p.ProductId,
                     Name = p.Name,
                     Price = p.Price,
+                    DiscountPrice = p.DiscountPrice,
                     StockQuantity = p.StockQuantity
                 }).ToListAsync();
         }
@@ -55,6 +56,7 @@ namespace ToyStoreManagement.Application.Services
             {
                 Name = productDto.Name,
                 Price = productDto.Price,
+                DiscountPrice = productDto.DiscountPrice,
                 StockQuantity = productDto.StockQuantity
             };
             await _productRepo.AddAsync(product);
@@ -81,12 +83,12 @@ namespace ToyStoreManagement.Application.Services
 
             if (searchDto.MinPrice.HasValue)
             {
-                query = query.Where(p => p.Price >= searchDto.MinPrice.Value);
+                query = query.Where(p => (p.DiscountPrice ?? p.Price) >= searchDto.MinPrice.Value);
             }
 
             if (searchDto.MaxPrice.HasValue)
             {
-                query = query.Where(p => p.Price <= searchDto.MaxPrice.Value);
+                query = query.Where(p => (p.DiscountPrice ?? p.Price) <= searchDto.MaxPrice.Value);
             }
 
             if (searchDto.MinAge.HasValue)
@@ -97,10 +99,10 @@ namespace ToyStoreManagement.Application.Services
             switch (searchDto.SortBy?.ToLower())
             {
                 case "price_asc":
-                    query = query.OrderBy(p => p.Price);
+                    query = query.OrderBy(p => p.DiscountPrice ?? p.Price);
                     break;
                 case "price_desc":
-                    query = query.OrderByDescending(p => p.Price);
+                    query = query.OrderByDescending(p => p.DiscountPrice ?? p.Price);
                     break;
                 case "newest":
                 default:
@@ -115,6 +117,7 @@ namespace ToyStoreManagement.Application.Services
                 Id = p.ProductId,
                 Name = p.Name,
                 Price = p.Price,
+                DiscountPrice = p.DiscountPrice,
                 StockQuantity = p.StockQuantity,
                 CategoryName = p.Category?.CategoryName ?? "N/A"
             }).ToList();
@@ -167,7 +170,7 @@ namespace ToyStoreManagement.Application.Services
                         OrderId = order.OrderId,
                         ProductId = item.ProductId,
                         Quantity = item.Quantity,
-                        Price = product.Price
+                        Price = product.DiscountPrice ?? product.Price
                     };
 
                     await _orderDetailRepo.AddAsync(detail);
@@ -230,8 +233,13 @@ namespace ToyStoreManagement.Application.Services
             return new OrderResponseDto
             {
                 OrderId = order.OrderId,
+                CustomerName = order.CustomerName,
+                CustomerPhone = order.CustomerPhone,
+                ShippingAddress = order.ShippingAddress,
+                OrderDate = order.OrderDate,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount,
+                Discount = order.Discount,
                 FinalAmount = order.FinalAmount,
                 Details = order.Details.Select(d => new OrderDetailResponseDto
                 {
@@ -305,13 +313,49 @@ namespace ToyStoreManagement.Application.Services
                 {
                     OrderId = o.OrderId,
                     CustomerName = o.CustomerName,
-                    TotalAmount = o.FinalAmount,
+                    CustomerPhone = o.CustomerPhone,
+                    TotalAmount = o.TotalAmount,
+                    Discount = o.Discount,
+                    FinalAmount = o.FinalAmount,
                     Status = o.Status,
                     OrderDate = o.OrderDate
                 })
                 .ToListAsync();
 
             return orders;
+        }
+
+        public async Task<bool> UpdateOrderStatusAsync(Guid orderId, string newStatus)
+        {
+            var order = await _orderRepo.GetByIdAsync(orderId);
+            if (order == null) return false;
+
+            // Nếu chuyển sang trạng thái Hủy, cần trả lại hàng vào kho
+            if (newStatus == OrderStatuses.Cancelled && order.Status != OrderStatuses.Cancelled)
+            {
+                var details = await _orderDetailRepo.GetQueryable()
+                    .Where(d => d.OrderId == orderId)
+                    .ToListAsync();
+
+                foreach (var item in details)
+                {
+                    var product = await _productRepo.GetByIdAsync(item.ProductId);
+                    if (product != null)
+                    {
+                        product.StockQuantity += item.Quantity;
+                        _productRepo.Update(product);
+                    }
+                }
+            }
+
+            order.Status = newStatus;
+            _orderRepo.Update(order);
+            await _orderRepo.SaveChangesAsync();
+
+            // Gửi thông báo SignalR (Tùy chọn)
+            await _notificationService.SendNotificationAsync($"Đơn hàng {order.OrderId} đã chuyển sang trạng thái: {newStatus}");
+
+            return true;
         }
     }
 }

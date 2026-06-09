@@ -18,5 +18,6 @@ namespace ToyStoreManagement.Application.Interfaces
         Task<bool> ProcessPaymentAsync(Guid orderId);
         Task<bool> CancelOrderAsync(Guid orderId); // <-- Mới: Hủy đơn hàng
         Task<List<OrderDto>> GetCustomerOrdersAsync(string customerId);
+        Task<bool> UpdateOrderStatusAsync(Guid orderId, string newStatus);
     }
 }

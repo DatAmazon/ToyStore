@@ -8,6 +8,8 @@ namespace ToyStoreManagement.Application.DTOs
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public decimal Price { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public int? DiscountPercentage { get; set; }
         public int StockQuantity { get; set; }
         public int MinimumAge { get; set; }
         public string Manufacturer { get; set; } = string.Empty;
@@ -42,6 +44,10 @@ namespace ToyStoreManagement.Application.DTOs
         public string Name { get; set; } = string.Empty;
 
         public decimal Price { get; set; }
+
+        public decimal? DiscountPrice { get; set; }
+
+        public int? DiscountPercentage { get; set; }
 
         // Khớp với trường "stockQuantity" từ FE
         public int StockQuantity { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using ToyStoreManagement.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using ToyStoreManagement.Infrastructure.Persistence;
 namespace ToyStoreManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260609024023_AddProductDiscountPrice")]
+    partial class AddProductDiscountPrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -559,10 +562,6 @@ namespace ToyStoreManagement.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("DESCRIPTION");
-
-                    b.Property<int?>("DiscountPercentage")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DISCOUNT_PERCENTAGE");
 
                     b.Property<decimal?>("DiscountPrice")
                         .HasColumnType("NUMBER(18, 2)")

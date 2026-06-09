@@ -1,5 +1,6 @@
 using AutoMapper;
 using ToyStoreManagement.Application.DTOs;
+using ToyStoreManagement.Application.DTOs.Admin;
 using ToyStoreManagement.Domain.Entities;
 
 namespace ToyStoreManagement.Application.Mappings
@@ -23,6 +24,9 @@ namespace ToyStoreManagement.Application.Mappings
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.Id))
                 // Bỏ qua không tự động map trường ImageUrl từ file nhị phân IFormFile
                 .ForMember(dest => dest.ImageUrl, opt => opt.Ignore());
+
+            CreateMap<ProductCreateDto, Product>()
+                .ReverseMap();
 
         }
     }

@@ -19,6 +19,12 @@ namespace ToyStoreManagement.Domain.Entities
         [Column("PRICE", TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
+        [Column("DISCOUNT_PRICE", TypeName = "decimal(18, 2)")]
+        public decimal? DiscountPrice { get; set; }
+
+        [Column("DISCOUNT_PERCENTAGE")]
+        public int? DiscountPercentage { get; set; }
+
         [Column("STOCK_QUANTITY")]
         public int StockQuantity { get; set; }
 
