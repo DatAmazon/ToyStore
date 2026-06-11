@@ -41,7 +41,7 @@
   │ Category             │ Technology                                     │
   ├──────────────────────┼────────────────────────────────────────────────┤
   │ Back-end             │ .NET 8, ASP.NET Core Web API                   │
-  │ Database             │ SQL Server, Entity Framework Core (Code First) │
+  │ Database             │ Oracle DB, Entity Framework Core (Code First) │
   │ Storage              │ Minio (S3 Compatible Storage)                  │
   │ Real-time            │ SignalR                                        │
   │ Mapping & Validation │ AutoMapper, FluentValidation                   │
