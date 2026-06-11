@@ -1,4 +1,4 @@
-ToyStore Management
+# ToyStore Management
 
 Hệ thống quản lý cửa hàng đồ chơi được xây dựng bằng ASP.NET Core Web API theo mô hình Clean Architecture.
 
@@ -44,6 +44,8 @@ Hệ thống quản lý cửa hàng đồ chơi được xây dựng bằng ASP.
 * Báo cáo doanh thu
 
 ## Project Structure
+
+```text
 src
 ├── ToyStoreManagement.API
 ├── ToyStoreManagement.Application
@@ -52,7 +54,7 @@ src
 
 tests
 └── ToyStoreManagement.IntegrationTests
-
+```
 
 ## Getting Started
 
@@ -62,20 +64,29 @@ Cập nhật Connection String trong `appsettings.json`.
 
 ### 2. Apply Migrations
 
+```bash
 dotnet ef database update \
 --project src/ToyStoreManagement.Infrastructure \
 --startup-project src/ToyStoreManagement.API
+```
 
 ### 3. Configure MinIO
+
 Cập nhật thông tin MinIO trong `appsettings.json`.
 
 ### 4. Run Application
-dotnet run --project src/ToyStoreManagement.API
 
+```bash
+dotnet run --project src/ToyStoreManagement.API
+```
 
 ## API Documentation
+
 Sau khi chạy ứng dụng:
+
+```text
 https://localhost:5001/swagger
+```
 
 ## Future Improvements
 
