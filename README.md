@@ -1,4 +1,4 @@
-# ToyStore Management
+## ToyStore Management
 
 Hệ thống quản lý cửa hàng đồ chơi được xây dựng bằng ASP.NET Core Web API theo mô hình Clean Architecture.
 
