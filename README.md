@@ -36,20 +36,6 @@
      tải dung lượng Database.
    - Scalable Reporting: Hệ thống xuất báo cáo (Inventory/Sales) linh hoạt dựa trên Template Engine chuyên nghiệp.
 
-
-  📂 Cấu Trúc Thư Mục Chính
-
-   1 ToyStoreManagement/
-   2 ├── src/
-   3 │   ├── ToyStoreManagement.API            # RESTful API & Hubs
-   4 │   ├── ToyStoreManagement.Application    # Use Cases & Interfaces
-   5 │   ├── ToyStoreManagement.Domain         # Entities & Core Logic
-   6 │   └── ToyStoreManagement.Infrastructure # Oracle DB, S3, Email Services
-   7 └── tests/
-   8     └── ToyStoreManagement.IntegrationTests # Automated API Tests
-
-  ---
-
   ⚙️ Hướng Dẫn Cài Đặt (Quick Start)
 
    1. Cấu hình Database: Cập nhật Connection String Oracle của bạn trong appsettings.json.
