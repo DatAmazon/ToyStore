@@ -1,79 +1,61 @@
- 🏗️ Kiến Trúc Hệ Thống (Architectural Overview)
+ 🧸 ToyStore Management System
+  Enterprise-Grade E-Commerce & Inventory Solution : .NET 10, Oracle Database, Clean Architecture, Minio Storage
 
-  Dự án áp dụng Clean Architecture (Onion Architecture) giúp tách biệt rõ ràng các lớp logic, đảm bảo tính dễ bảo trì
-  (maintainability) và dễ mở rộng (scalability):
+  🌟 Tổng Quan Dự Án
+  ToyStore Management là hệ thống quản trị thương mại điện tử toàn diện
 
-   - ToyStoreManagement.Domain: Trái tim của hệ thống. Chứa các Entity, Enums và Interfaces cốt lõi. Không phụ thuộc vào
-     bất kỳ thư viện bên ngoài nào.
-   - ToyStoreManagement.Application: Chứa logic nghiệp vụ (Use Cases), DTOs, Mapping (AutoMapper) và Validation
-     (FluentValidation).
-   - ToyStoreManagement.Infrastructure: Triển khai các dịch vụ bên ngoài: Database (EF Core), Storage (Minio), Email
-     Service, Security.
-   - ToyStoreManagement.API: Lớp giao tiếp với bên ngoài (RESTful API), xử lý Middleware, Authentication/Authorization
-     và SignalR Hubs.
+  🏗️ Kiến Trúc Hệ Thống (Clean Architecture)
+  Dự án được phân tách thành các lớp (Layers) nghiêm ngặt để đảm bảo nguyên lý Separation of Concerns:
 
-  ---
-
-  🚀 Tính Năng Nổi Bật (Key Features)
-
-  👤 Cho Khách Hàng (Customer Experience)
-   - E-Commerce Flow: Tìm kiếm sản phẩm thông minh, quản lý giỏ hàng (Cart) và danh sách yêu thích (Wishlist).
-   - Checkout System: Quy trình thanh toán linh hoạt (Hỗ trợ Guest Checkout), tích hợp mã giảm giá (Discount Codes).
-   - Social Interaction: Đánh giá sản phẩm (Reviews) và phản hồi từ người dùng.
-
-  🔐 Cho Quản Trị Viên (Admin & Management)
-   - Smart Dashboard: Thống kê doanh thu, đơn hàng và tình trạng tồn kho theo thời gian thực.
-   - Inventory Management: Quản lý nhập kho (Inventory Receipts), nhà cung cấp (Suppliers) và cảnh báo hàng tồn.
-   - Advanced Audit Logs: Ghi lại mọi hoạt động thay đổi dữ liệu nhạy cảm để đảm bảo tính an ninh và minh bạch.
-   - Dynamic Settings: Cấu hình cửa hàng, tiền tệ và hệ thống linh hoạt qua Store Settings.
-
-  🛠️ Kỹ Thuật Hệ Thống (System Engineering)
-   - Real-time Notifications: Sử dụng SignalR để thông báo đơn hàng mới hoặc cập nhật trạng thái kho ngay lập tức.
-   - Object Storage: Tích hợp Minio để quản lý hình ảnh sản phẩm chuyên nghiệp thay vì lưu trực tiếp trong server.
-   - Reporting Service: Xuất báo cáo (Sales, Inventory, Customer) với hệ thống Template chuyên nghiệp.
-   - Robust Security: Identity Framework kết hợp JWT, phân quyền Role-based (Admin, Staff, Customer).
+   * Core Domain: Chứa các Business Entities, định nghĩa quy tắc nghiệp vụ cốt lõi, hoàn toàn độc lập với các thư viện
+     bên ngoài.
+   * Application Logic: Điều phối luồng dữ liệu thông qua các Use Cases, DTOs, và tích hợp các công cụ như AutoMapper,
+     FluentValidation.
+   * Infrastructure: Tầng hạ tầng xử lý các tác vụ "nặng" như:
+       * Oracle EF Core Provider: Tối ưu hóa truy vấn và quản lý Transaction trên Oracle.
+       * Storage Service: Tích hợp Minio (S3 Compatible) để quản lý tài nguyên số.
+       * Security: Triển khai Identity Framework & JWT Authentication.
+   * API Layer: Cung cấp RESTful Endpoints chuẩn hóa, tích hợp Global Exception Middleware và Swagger Documentation.
 
   ---
 
-  🛠️ Công Nghệ Sử Dụng (Tech Stack)
+  🚀 Tính Năng Kỹ Thuật Nổi Bật
 
-  ┌──────────────────────┬────────────────────────────────────────────────┐
-  │ Category             │ Technology                                     │
-  ├──────────────────────┼────────────────────────────────────────────────┤
-  │ Back-end             │ .NET 8, ASP.NET Core Web API                   │
-  │ Database             │ Oracle DB, Entity Framework Core (Code First) │
-  │ Storage              │ Minio (S3 Compatible Storage)                  │
-  │ Real-time            │ SignalR                                        │
-  │ Mapping & Validation │ AutoMapper, FluentValidation                   │
-  │ Testing              │ xUnit, Integration Tests                       │
-  │ Documentation        │ Swagger (OpenAPI)                              │
-  └──────────────────────┴────────────────────────────────────────────────┘
-  ---
+  💎 Hệ Quản Trị Dữ Liệu Enterprise
+   - Oracle Code First Migrations: Quản lý cấu trúc Database phức tạp (Tablespace, Schema) hoàn toàn bằng mã nguồn.
+   - Audit Logs System: Tự động theo dõi và ghi lại mọi biến động dữ liệu nhạy cảm, đảm bảo tính minh bạch cho quy trình
+     quản trị.
 
-  📈 Sơ Đồ Cơ Sở Dữ Liệu (Database Schema)
-  Hệ thống quản lý hơn 15+ bảng dữ liệu được chuẩn hóa, bao gồm:
-   - Core: Products, Categories, Suppliers.
-   - Sales: Orders, OrderDetails, CartItems, DiscountCodes.
-   - System: AuditLogs, StoreSettings, AppUsers.
-  ---
+  🛡️ Bảo Mật Đa Tầng
+   - Authentication: Kết hợp Identity Core, JWT cho Mobile/Web và Google OAuth 2.0 cho khách hàng.
+   - Authorization: Phân quyền dựa trên Role (RBAC) và Policy-based, kiểm soát truy cập đến từng API Endpoint.
 
-  🛡️ Chất Lượng Mã Nguồn (Quality Assurance)
-   - Design Patterns: Repository Pattern, Unit of Work, Dependency Injection.
-   - Middleware: Xử lý lỗi tập trung (Global Exception Handling) và ghi log hoạt động.
-   - Testing: Đã triển khai Integration Tests để đảm bảo các API endpoint hoạt động chính xác trong môi trường thực tế.
+  ⚡ Hiệu Năng & Trải Nghiệm
+   - Real-time Engine: Sử dụng SignalR để đồng bộ trạng thái đơn hàng và thông báo tức thời giữa hệ thống và người dùng.
+   - Modern Storage: Áp dụng tư duy Cloud-native bằng cách tách biệt việc lưu trữ file vật lý sang Minio S3, giúp giảm
+     tải dung lượng Database.
+   - Scalable Reporting: Hệ thống xuất báo cáo (Inventory/Sales) linh hoạt dựa trên Template Engine chuyên nghiệp.
+
+
+  📂 Cấu Trúc Thư Mục Chính
+
+   1 ToyStoreManagement/
+   2 ├── src/
+   3 │   ├── ToyStoreManagement.API            # RESTful API & Hubs
+   4 │   ├── ToyStoreManagement.Application    # Use Cases & Interfaces
+   5 │   ├── ToyStoreManagement.Domain         # Entities & Core Logic
+   6 │   └── ToyStoreManagement.Infrastructure # Oracle DB, S3, Email Services
+   7 └── tests/
+   8     └── ToyStoreManagement.IntegrationTests # Automated API Tests
+
   ---
 
   ⚙️ Hướng Dẫn Cài Đặt (Quick Start)
 
-   1. Clone project:
+   1. Cấu hình Database: Cập nhật Connection String Oracle của bạn trong appsettings.json.
+   2. Khởi tạo Database:
 
-   1    git clone https://github.com/yourusername/ToyStoreManagement.git
-   2. Cấu hình Database:
-     Cập nhật ConnectionStrings trong file appsettings.json.
-   3. Update Database:
-    dotnet ef database update --project ToyStoreManagement.Infrastructure --startup-project ToyStoreManagement.API
-   4. Run:
-
-   1    dotnet run --project ToyStoreManagement.API
-
-  ---
+   1     dotnet ef database update --project ToyStoreManagement.Infrastructure --startup-project ToyStoreManagement.API
+   3. Cấu hình Minio: Đảm bảo Server Minio đang chạy để hệ thống có thể upload hình ảnh sản phẩm.
+   4. Chạy dự án:
+   1     dotnet run --project ToyStoreManagement.API
