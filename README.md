@@ -1,47 +1,85 @@
- 🧸 ToyStore Management System
-  Enterprise-Grade E-Commerce & Inventory Solution : .NET 10, Oracle Database, Clean Architecture, Minio Storage
+ToyStore Management
 
-  🌟 Tổng Quan Dự Án
-  ToyStore Management là hệ thống quản trị thương mại điện tử toàn diện
+Hệ thống quản lý cửa hàng đồ chơi được xây dựng bằng ASP.NET Core Web API theo mô hình Clean Architecture.
 
-  🏗️ Kiến Trúc Hệ Thống (Clean Architecture)
-  Dự án được phân tách thành các lớp (Layers) nghiêm ngặt để đảm bảo nguyên lý Separation of Concerns:
+## Technologies
 
-   * Core Domain: Chứa các Business Entities, định nghĩa quy tắc nghiệp vụ cốt lõi, hoàn toàn độc lập với các thư viện
-     bên ngoài.
-   * Application Logic: Điều phối luồng dữ liệu thông qua các Use Cases, DTOs, và tích hợp các công cụ như AutoMapper,
-     FluentValidation.
-   * Infrastructure: Tầng hạ tầng xử lý các tác vụ "nặng" như:
-       * Oracle EF Core Provider: Tối ưu hóa truy vấn và quản lý Transaction trên Oracle.
-       * Storage Service: Tích hợp Minio (S3 Compatible) để quản lý tài nguyên số.
-       * Security: Triển khai Identity Framework & JWT Authentication.
-   * API Layer: Cung cấp RESTful Endpoints chuẩn hóa, tích hợp Global Exception Middleware và Swagger Documentation.
+* .NET 10
+* ASP.NET Core Web API
+* Entity Framework Core
+* Oracle Database 21c
+* ASP.NET Core Identity
+* JWT Authentication
+* SignalR
+* MinIO (S3 Compatible Storage)
+* AutoMapper
+* FluentValidation
+* Swagger
 
-  ---
+## Features
 
-  🚀 Tính Năng Kỹ Thuật Nổi Bật
+### Authentication & Authorization
 
-  💎 Hệ Quản Trị Dữ Liệu Enterprise
-   - Oracle Code First Migrations: Quản lý cấu trúc Database phức tạp (Tablespace, Schema) hoàn toàn bằng mã nguồn.
-   - Audit Logs System: Tự động theo dõi và ghi lại mọi biến động dữ liệu nhạy cảm, đảm bảo tính minh bạch cho quy trình
-     quản trị.
+* Đăng ký / đăng nhập
+* JWT Authentication
+* Refresh Token
+* Google Login
+* Role-based Authorization
 
-  🛡️ Bảo Mật Đa Tầng
-   - Authentication: Kết hợp Identity Core, JWT cho Mobile/Web và Google OAuth 2.0 cho khách hàng.
-   - Authorization: Phân quyền dựa trên Role (RBAC) và Policy-based, kiểm soát truy cập đến từng API Endpoint.
+### Product Management
 
-  ⚡ Hiệu Năng & Trải Nghiệm
-   - Real-time Engine: Sử dụng SignalR để đồng bộ trạng thái đơn hàng và thông báo tức thời giữa hệ thống và người dùng.
-   - Modern Storage: Áp dụng tư duy Cloud-native bằng cách tách biệt việc lưu trữ file vật lý sang Minio S3, giúp giảm
-     tải dung lượng Database.
-   - Scalable Reporting: Hệ thống xuất báo cáo (Inventory/Sales) linh hoạt dựa trên Template Engine chuyên nghiệp.
+* Quản lý sản phẩm
+* Quản lý danh mục
+* Upload hình ảnh sản phẩm lên MinIO
 
-  ⚙️ Hướng Dẫn Cài Đặt (Quick Start)
+### Order Management
 
-   1. Cấu hình Database: Cập nhật Connection String Oracle của bạn trong appsettings.json.
-   2. Khởi tạo Database:
+* Tạo đơn hàng
+* Theo dõi trạng thái đơn hàng
+* Cập nhật trạng thái theo thời gian thực bằng SignalR
 
-   1     dotnet ef database update --project ToyStoreManagement.Infrastructure --startup-project ToyStoreManagement.API
-   3. Cấu hình Minio: Đảm bảo Server Minio đang chạy để hệ thống có thể upload hình ảnh sản phẩm.
-   4. Chạy dự án:
-   1     dotnet run --project ToyStoreManagement.API
+### Reporting
+
+* Báo cáo tồn kho
+* Báo cáo doanh thu
+
+## Project Structure
+src
+├── ToyStoreManagement.API
+├── ToyStoreManagement.Application
+├── ToyStoreManagement.Domain
+└── ToyStoreManagement.Infrastructure
+
+tests
+└── ToyStoreManagement.IntegrationTests
+
+
+## Getting Started
+
+### 1. Configure Database
+
+Cập nhật Connection String trong `appsettings.json`.
+
+### 2. Apply Migrations
+
+dotnet ef database update \
+--project src/ToyStoreManagement.Infrastructure \
+--startup-project src/ToyStoreManagement.API
+
+### 3. Configure MinIO
+Cập nhật thông tin MinIO trong `appsettings.json`.
+
+### 4. Run Application
+dotnet run --project src/ToyStoreManagement.API
+
+
+## API Documentation
+Sau khi chạy ứng dụng:
+https://localhost:5001/swagger
+
+## Future Improvements
+
+* Redis Cache
+* Docker Deployment
+* CI/CD Pipeline
+* Unit Tests
